@@ -1,1 +1,1 @@
-"# WikipediaBot" 
+# WikipediaBot
