@@ -2,15 +2,16 @@ import wikipedia
 from aiogram import Bot, Dispatcher, executor, types
 import re
 
-from aiogram.utils.callback_data import CallbackData
+#from aiogram.utils.callback_data import CallbackData
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-from keyboards import ininlinekeyboard, keyboard, keyboard2
+from keyboards import keyboard , ininlinekeyboard, keyboard2
 
 TOKEN = "5977899411:AAGcb-0i30DnLoYOm03uRljSMDD_xBYpOfQ"
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher(bot)
+language="ru"
 
 
 @dp.message_handler(commands=['start'])
@@ -20,7 +21,7 @@ async def send_welcome(message: types.Message):
 @dp.message_handler(commands=['language'])
 async def send_welcome(message: types.Message):
     await message.reply("Выберете язык для ввода",reply_markup=keyboard)
-    if keyboard=="English":
+    if keyboard == "English":
         language = "en"
     else:
         language = "fr"
@@ -50,7 +51,6 @@ async def any_text_message(message: types.Message):
 
 def getwiki(text):
     try:
-        language = "ru"
         wikipedia.set_lang(language)
         ny = wikipedia.page(text)
 
