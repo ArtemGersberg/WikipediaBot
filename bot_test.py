@@ -1,30 +1,31 @@
+import aiogram.types
 import wikipedia
 from aiogram import Bot, Dispatcher, executor, types
 import re
+import langdetect
+from aiogram import Bot, types
+from aiogram.dispatcher import Dispatcher
+from aiogram.utils import executor
 
+#from aiogram.dispatcher.filters import Command
 #from aiogram.utils.callback_data import CallbackData
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-from keyboards import keyboard , ininlinekeyboard, keyboard2
+from keyboards import keyboard , ininlinekeyboard, keyboard2,lang_markup
 
 TOKEN = "5977899411:AAGcb-0i30DnLoYOm03uRljSMDD_xBYpOfQ"
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher(bot)
-language="ru"
-
 
 @dp.message_handler(commands=['start'])
 async def send_welcome(message: types.Message):
-    await message.reply("Отправьте мне любое слово, и я найду его значение на Wikipedia")
+    await message.reply("Отправьте мне любое слово, и я найду его значение на Wikipedia",reply_markup=aiogram.types.ReplyKeyboardRemove())
 
-@dp.message_handler(commands=['language'])
+
+@dp.message_handler(commands=['lang'])
 async def send_welcome(message: types.Message):
-    await message.reply("Выберете язык для ввода",reply_markup=keyboard)
-    if keyboard == "English":
-        language = "en"
-    else:
-        language = "fr"
+    await message.reply("Выбериете язык ввода",reply_markup=lang_markup)
 
 
 
@@ -49,9 +50,11 @@ async def any_text_message(message: types.Message):
 
 
 
+
+
 def getwiki(text):
     try:
-        wikipedia.set_lang(language)
+        wikipedia.set_lang("ru")
         ny = wikipedia.page(text)
 
         wikitext = ny.content[:1000]
