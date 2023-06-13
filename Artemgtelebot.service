@@ -7,7 +7,7 @@ User=artemg
 Group=artemg
 
 WorkingDirectory=/home/artemg/WikipediaBot/
-Environment="PYTHONPATH=/home/artemg/WikipediaBot/
+Environment="PYTHONPATH=/home/artemg/WikipediaBot/"
 ExecStart=/home/artemg/WikipediaBot/.venv/bin/python /home/artemg/WikipediaBot/bot.py
 
 [Install]
