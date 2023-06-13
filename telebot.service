@@ -1,0 +1,14 @@
+[Unit]
+Description=Telegram Bot
+After=network.target
+
+[Service]
+User=artemg
+Group=artemg
+
+WorkingDirectory=/home/artemg/WikipediaBot/
+Environment="PYTHONPATH=/home/artemg/WikipediaBot/
+ExecStart=/home/artemg/WikipediaBot/.venv/bin/python /home/artemg/WikipediaBot/main.py
+
+[Install]
+WantedBy=multi-user.target

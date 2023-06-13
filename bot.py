@@ -32,6 +32,10 @@ async def any_text_message(message: types.Message):
         await message.answer(txt)
 
 
+
+
+
+
 def getwiki(text):
     try:
         language = "ru"
@@ -52,6 +56,7 @@ def getwiki(text):
         wikitext2 = re.sub('\([^()]*\)', '', wikitext2)
         wikitext2 = re.sub('\{[^\{\}]*\}', '', wikitext2)
         return wikitext2, ny.url
+
 
     except Exception as e:
         return 'В энциклопедии нет информации об этом', None
