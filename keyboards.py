@@ -13,16 +13,12 @@ i2 = InlineKeyboardButton(f'Перейти на сайт со статьёй→'
 
 
 
-
-
-
-b1 = KeyboardButton("Поделиться номером", request_location=True)
-b2 = KeyboardButton("Больше не хочу никого искать", request_contact=True)
-b3 = KeyboardButton("🙋‍♂️")
+b1 = KeyboardButton("Английский", request_location=True)
+b2 = KeyboardButton("Французский", request_contact=True)
 keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
-keyboard.add(b1).add(b2).add(b3)
+keyboard.add(b1).add(b2)
 
 keyboard2 = ReplyKeyboardMarkup(one_time_keyboard=True)
-keyboard2.insert(b1).insert(b2).insert(b3)
+keyboard2.insert(b1).insert(b2)
 ininlinekeyboard=InlineKeyboardMarkup().insert(i1).insert(i2)
 
