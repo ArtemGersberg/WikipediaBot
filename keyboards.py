@@ -7,7 +7,6 @@ from aiogram.types import \
 
 
 
-<<<<<<< HEAD
 i1 = InlineKeyboardButton(f'Читать дальше... ',callback_data='i2')
 i2 = InlineKeyboardButton(f'Перейти на сайт со статьёй→',callback_data='i2')
 
@@ -18,7 +17,6 @@ lang_markup = InlineKeyboardMarkup(row_width=2)
 lang_markup.add(i3).add(i4)
 
 ininlinekeyboard=InlineKeyboardMarkup().insert(i1).insert(i2)
-=======
 k1 = KeyboardButton("English🇺🇸")
 k2 = KeyboardButton("Русский🇷🇺")
 k3 = KeyboardButton("Français🇫🇷")
@@ -30,9 +28,8 @@ k8 = KeyboardButton("Italiano🇮🇹")
 k9 = KeyboardButton("िन्दी🇮🇳")
 k10 = KeyboardButton("Svensk🇸🇪")
 k11 = KeyboardButton("日本語🇯🇵")
-#lang_markup = InlineKeyboardMarkup(row_width=2,one_time_keyboard=True)
-# lang_markup.add(i3).add(i4)
 
 lang_markup = ReplyKeyboardMarkup().add(k1).add(k2).add(k3).add(k4).add(k5).add(k6).add(k7).add(k8).add(k9).add(k10).add(k11)
->>>>>>> caeca67 (Refactoring)
+#grhgg5gr
+
 
