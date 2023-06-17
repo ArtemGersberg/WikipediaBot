@@ -11,7 +11,6 @@ from aiogram.utils import executor
 from keyboards import lang_markup
 
 TOKEN="5977899411:AAGcb-0i30DnLoYOm03uRljSMDD_xBYpOfQ"
-
 bot = Bot(token=TOKEN)
 dp = Dispatcher(bot, storage=MemoryStorage())
 
