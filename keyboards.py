@@ -30,6 +30,5 @@ k10 = KeyboardButton("Svensk🇸🇪")
 k11 = KeyboardButton("日本語🇯🇵")
 
 lang_markup = ReplyKeyboardMarkup().add(k1).add(k2).add(k3).add(k4).add(k5).add(k6).add(k7).add(k8).add(k9).add(k10).add(k11)
-#grhgg5grartem
 
 
