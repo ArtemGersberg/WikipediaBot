@@ -132,8 +132,6 @@ async def set_language(message: types.Message, state: FSMContext):
     elif lang_markup=="日本語🇯🇵":
         await message.reply("選択された言語：日本語🇯🇵\n私に任意の単語を送信し、私はWikipedia上でその意味を見つけるでしょう",reply_markup=ReplyKeyboardRemove())
         await state.update_data(language="ja")
-
-
     await state.set_state("ask_request")
 @dp.message_handler(state="ask_request")
 async def find_on_wiki(message: types.Message, state: FSMContext):
