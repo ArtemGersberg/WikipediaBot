@@ -15,15 +15,15 @@ dp = Dispatcher(bot, storage=MemoryStorage())
 
 @dp.message_handler(commands=['start'], state="*")
 async def setup_language(message: types.Message, state: FSMContext):
-    await message.reply("Выбор действия", reply_markup=lang_markup12)
+    await message.answer("Выбор действия", reply_markup=lang_markup12)
     await state.set_state("wait_knopka")
 
 @dp.message_handler(state='площадь')
 async def age_process(message: types.Message, state: FSMContext):
     text = message.text
-    #await message.reply("Введите площадь")
-    if text.isdigit():
-        await state.update_data({'площадь' : int(text)})
+    await state.update_data({"text": text})
+    if isinstance(text, str) and text.isdigit():
+        await state.update_data({'площадь': float(text)})
         await message.answer("теперь введите толщину")
         await state.set_state('толщина')
     else:
@@ -32,10 +32,11 @@ async def age_process(message: types.Message, state: FSMContext):
 @dp.message_handler(state='толщина')
 async def age_process(message: types.Message, state: FSMContext):
     text1 = message.text
-    if text1.isdigit():
-        #await message.reply("Введите толщину")
-        await state.update_data({'площадь' : int(text1)})
-        await message.reply("всё")
+    data = await state.get_data()
+    text = float(data["text"])
+    if isinstance(text1, str) and text1.isdigit():
+        await state.update_data({'толщина' : float(text1)})
+        await message.answer(float((text/(float(text1)*35)**2)*(float(text1)*35)*2))
 
     else:
         await message.reply("Вы ввели не число. Повторите попытку")
@@ -45,7 +46,7 @@ async def age_process(message: types.Message, state: FSMContext):
 async def set_language(message: types.Message, state: FSMContext):
     lang_markup12 = message.text
     if lang_markup12 == "Расчет количества температурно-усадочных швов":
-        await message.reply("Введите площадь")
+        await message.answer("Введите площадь")
         await state.set_state("площадь")
 
 
