@@ -24,7 +24,7 @@ async def age_process(message: types.Message, state: FSMContext):
     await state.update_data({"text": text})
     if isinstance(text, str) and text.isdigit():
         await state.update_data({'площадь': float(text)})
-        await message.answer("теперь введите толщину")
+        await message.answer("Введите толщину(в мм)")
         await state.set_state('толщина')
     else:
         await message.reply("Вы ввели не число. Повторите попытку")
@@ -36,7 +36,7 @@ async def age_process(message: types.Message, state: FSMContext):
     text = float(data["text"])
     if isinstance(text1, str) and text1.isdigit():
         await state.update_data({'толщина' : float(text1)})
-        await message.answer(float((text/(float(text1)*35)**2)*(float(text1)*35)*2))
+        await message.answer("Количество швов:" + str(float((text/(float(text1)*35)**2)*(float(text1)*35)*2)))
 
     else:
         await message.reply("Вы ввели не число. Повторите попытку")
@@ -46,7 +46,8 @@ async def age_process(message: types.Message, state: FSMContext):
 async def set_language(message: types.Message, state: FSMContext):
     lang_markup12 = message.text
     if lang_markup12 == "Расчет количества температурно-усадочных швов":
-        await message.answer("Введите площадь")
+        await message.answer("Эта функция считает количество температурно-усадочных швов\nДля того чтобы получить их количество,введите все данные, которые запрашивает бот и он выведет ответ",reply_markup=ReplyKeyboardRemove())
+        await message.answer("Введите площадь(в м²)")
         await state.set_state("площадь")
 
 
