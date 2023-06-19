@@ -20,10 +20,10 @@ async def setup_language(message: types.Message, state: FSMContext):
 
 @dp.message_handler(state='площадь')
 async def age_process(message: types.Message, state: FSMContext):
-    text = message.text
-    await state.update_data({"text": text})
-    if isinstance(text, str) and text.isdigit():
-        await state.update_data({'площадь': float(text)})
+    a = message.text
+    await state.update_data({"a": a})
+    if isinstance(a, str) and a.isdigit():
+        await state.update_data({'площадь': float(a)})
         await message.answer("Введите толщину(в мм)")
         await state.set_state('толщина')
     else:
@@ -31,13 +31,14 @@ async def age_process(message: types.Message, state: FSMContext):
 
 @dp.message_handler(state='толщина')
 async def age_process(message: types.Message, state: FSMContext):
-    text1 = message.text
+    b = message.text
     data = await state.get_data()
-    text = float(data["text"])
-    if isinstance(text1, str) and text1.isdigit():
-        await state.update_data({'толщина' : float(text1)})
-        await message.answer("Количество швов:" + str(float((text/(float(text1)*35)**2)*(float(text1)*35)*2)))
-
+    a = float(data["a"])
+    if isinstance(b, str) and b.isdigit():
+        yre=(a*30)/1000
+        await state.update_data({'толщина' : float(b)})
+        await message.answer("Количество швов - " + str(int(float(a//(float(b)*30//1000)**2)*(float(b)*30//1000)*2)) + " п.м.")
+        await message.answer("Шаг нарезки швов - " + str(int(float(b)*30//1000)) + " п.м.")
     else:
         await message.reply("Вы ввели не число. Повторите попытку")
 
