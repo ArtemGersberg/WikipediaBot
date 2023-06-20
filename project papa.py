@@ -35,10 +35,16 @@ async def age_process(message: types.Message, state: FSMContext):
     data = await state.get_data()
     a = float(data["a"])
     if isinstance(b, str) and b.isdigit():
-        yre=(a*30)/1000
         await state.update_data({'толщина' : float(b)})
         await message.answer("Количество швов - " + str(int(float(a//(float(b)*30//1000)**2)*(float(b)*30//1000)*2)) + " п.м.")
         await message.answer("Шаг нарезки швов - " + str(int(float(b)*30//1000)) + " п.м.")
+        if (float(a//(float(b)*30//1000)**2)*(float(b)*30//1000)*2)%200==0:
+            await message.answer("Количество необходимых алмазных дисков для нарезки швов -" + str(int((float(a // (float(b) * 30 // 1000) ** 2) * (float(b) * 30 // 1000) * 2)/200)) +"шт" )
+            await message.answer(f"Алмазные диски для нарезки швов можно купить на сайте:http://samishsib.ru/catalog/70/")
+        else:
+            await message.answer("Количество необходимых алмазных дисков для нарезки швов - " + str(int((float(a // (float(b) * 30 // 1000) ** 2) * (float(b) * 30 // 1000) * 2)/200)+1) +"шт")
+            await message.answer(f"Алмазные диски для нарезки швов можно купить на сайте:http://samishsib.ru/catalog/70/")
+
     else:
         await message.reply("Вы ввели не число. Повторите попытку")
 
@@ -111,7 +117,7 @@ async def age_process(message: types.Message, state: FSMContext):
             sh = float(data["шаг"])
             data = await state.get_data()
             de = float(data["масса арматуры"])
-            await message.answer("Количество арматуры - " + str((((300 / float(sh)) * 2) * float(de)) / 9))
+            await message.answer("Количество арматуры - " + str((((3000 / float(sh)) * 2) * float(de)) / 9))
         elif d == "150":
             shag20 = 150
             await state.update_data({'шаг': float(shag20)})
@@ -119,7 +125,7 @@ async def age_process(message: types.Message, state: FSMContext):
             sh = float(data["шаг"])
             data = await state.get_data()
             de = float(data["масса арматуры"])
-            await message.answer("Количество арматуры - " + str((((300 / float(sh)) * 2) * float(de)) / 9))
+            await message.answer("Количество арматуры - " + str((((9000 / float(sh)) * 2) * float(de)) / 9))
         elif d == "200":
             shag20 = 200
             await state.update_data({'шаг': float(shag20)})
@@ -127,7 +133,7 @@ async def age_process(message: types.Message, state: FSMContext):
             sh = float(data["шаг"])
             data = await state.get_data()
             de = float(data["масса арматуры"])
-            await message.answer("Количество арматуры - " + str((((300 / float(sh)) * 2) * float(de)) / 9))
+            await message.answer("Количество арматуры - " + str((((9000 / float(sh)) * 2) * float(de)) / 9))
         elif d == "250":
             shag20 = 250
             await state.update_data({'шаг': float(shag20)})
@@ -135,7 +141,7 @@ async def age_process(message: types.Message, state: FSMContext):
             sh = float(data["шаг"])
             data = await state.get_data()
             de = float(data["масса арматуры"])
-            await message.answer("Количество арматуры - " + str((((300 / float(sh)) * 2) * float(de)) / 9))
+            await message.answer("Количество арматуры - " + str((((9000 / float(sh)) * 2) * float(de)) / 9))
         elif d == "300":
             shag20 = 300
             await state.update_data({'шаг': float(shag20)})
@@ -143,7 +149,7 @@ async def age_process(message: types.Message, state: FSMContext):
             sh = float(data["шаг"])
             data = await state.get_data()
             de = float(data["масса арматуры"])
-            await message.answer("Количество арматуры - " + str((((300 / float(sh)) * 2) * float(de)) / 9))
+            await message.answer("Количество арматуры - " + str((((9000 / float(sh)) * 2) * float(de)) / 9))
     else:
         await message.reply("Вы ввели не число. Повторите попытку")
 

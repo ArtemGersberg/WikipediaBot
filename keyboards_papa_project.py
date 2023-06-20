@@ -12,7 +12,7 @@ lang_markup1 = ReplyKeyboardMarkup().add(k1).add(k2)
 
 
 a1 = KeyboardButton("Однослойное армирование")
-a2 = KeyboardButton("Двхслойное армирование")
+a2 = KeyboardButton("Двухслойное армирование")
 lang_markup2 = ReplyKeyboardMarkup().add(a1).add(a2)
 
 
