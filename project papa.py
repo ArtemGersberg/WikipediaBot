@@ -40,10 +40,10 @@ async def age_process(message: types.Message, state: FSMContext):
         await message.answer("Шаг нарезки швов - " + str(int(float(b)*30//1000)) + " п.м.")
         if (float(a//(float(b)*30//1000)**2)*(float(b)*30//1000)*2)%200==0:
             await message.answer("Количество необходимых алмазных дисков для нарезки швов -" + str(int((float(a // (float(b) * 30 // 1000) ** 2) * (float(b) * 30 // 1000) * 2)/200)) +"шт" )
-            await message.answer(f"Алмазные диски для нарезки швов можно купить на сайте:http://samishsib.ru/catalog/70/")
+            await message.answer(f"Алмазные диски для нарезки швов можно приобрести на сайте:http://samishsib.ru/catalog/70/")
         else:
             await message.answer("Количество необходимых алмазных дисков для нарезки швов - " + str(int((float(a // (float(b) * 30 // 1000) ** 2) * (float(b) * 30 // 1000) * 2)/200)+1) +"шт")
-            await message.answer(f"Алмазные диски для нарезки швов можно купить на сайте:http://samishsib.ru/catalog/70/")
+            await message.answer(f"Алмазные диски для нарезки швов можно приобрести на сайте:http://samishsib.ru/catalog/70/")
 
     else:
         await message.reply("Вы ввели не число. Повторите попытку")
