@@ -70,30 +70,30 @@ async def age_process(message: types.Message, state: FSMContext):
     c = message.text
     if isinstance(c, str) and c.isdigit():
         await state.update_data({'однослойное армирование': float(c)})
-        if lang_markup3=="8":
+        if c=="8":
             dem20 = 0.395
             await state.update_data({'масса арматуры': float(dem20)})
             await message.answer("Теперь введите шаг арматуры",reply_markup=lang_markup4)
             await state.set_state("шаг арматуры")
-        elif lang_markup3=="10":
+        elif c=="10":
             dem20 = 0.617
             await state.update_data({'масса арматуры': float(dem20)})
             await message.answer("Теперь введите шаг арматуры", reply_markup=lang_markup4)
             await state.set_state("шаг арматуры")
-        elif lang_markup3=="12":
+        elif c=="12":
             dem20 = 0.888
             await state.update_data({'масса арматуры': float(dem20)})
             await message.answer("Теперь введите шаг арматуры", reply_markup=lang_markup4)
             await state.set_state("шаг арматуры")
-        elif lang_markup3=="14":
+        elif c=="14":
             dem20 = 1.210
             await state.update_data({'масса арматуры': float(dem20)})
             await message.answer("Теперь введите шаг арматуры", reply_markup=lang_markup4)
             await state.set_state("шаг арматуры")
-        elif lang_markup3=="16":
+        elif c=="16":
             dem20 = 1.580
             await state.update_data({'масса арматуры': float(dem20)})
-            await message.answer("Теперь введите шаг арматуры", reply_markup=lang_markup4)
+            await message.answer("Теперь введите шаг арматуры(в мм)", reply_markup=lang_markup4)
             await state.set_state("шаг арматуры")
     else:
         await message.reply("Вы ввели не число. Повторите попытку")
@@ -104,47 +104,48 @@ async def age_process(message: types.Message, state: FSMContext):
 async def age_process(message: types.Message, state: FSMContext):
     d = message.text
     if isinstance(d, str) and d.isdigit():
-        if lang_markup4 == "100мм":
+        if d == "100":
             shag20 = 100
             await state.update_data({'шаг': float(shag20)})
-            await state.set_state("формула 2ой кнопки")
-        elif lang_markup4 == "150мм":
+            data = await state.get_data()
+            sh = float(data["шаг"])
+            data = await state.get_data()
+            de = float(data["масса арматуры"])
+            await message.answer("Количество арматуры - " + str((((300 / float(sh)) * 2) * float(de)) / 9))
+        elif d == "150":
             shag20 = 150
             await state.update_data({'шаг': float(shag20)})
-            await state.set_state("формула 2ой кнопки")
-        elif lang_markup4 == "150мм":
+            data = await state.get_data()
+            sh = float(data["шаг"])
+            data = await state.get_data()
+            de = float(data["масса арматуры"])
+            await message.answer("Количество арматуры - " + str((((300 / float(sh)) * 2) * float(de)) / 9))
+        elif d == "200":
             shag20 = 200
             await state.update_data({'шаг': float(shag20)})
-            await state.set_state("формула 2ой кнопки")
-        elif lang_markup4 == "150мм":
+            data = await state.get_data()
+            sh = float(data["шаг"])
+            data = await state.get_data()
+            de = float(data["масса арматуры"])
+            await message.answer("Количество арматуры - " + str((((300 / float(sh)) * 2) * float(de)) / 9))
+        elif d == "250":
             shag20 = 250
             await state.update_data({'шаг': float(shag20)})
-            await state.set_state("формула 2ой кнопки")
-        elif lang_markup4 == "150мм":
+            data = await state.get_data()
+            sh = float(data["шаг"])
+            data = await state.get_data()
+            de = float(data["масса арматуры"])
+            await message.answer("Количество арматуры - " + str((((300 / float(sh)) * 2) * float(de)) / 9))
+        elif d == "300":
             shag20 = 300
             await state.update_data({'шаг': float(shag20)})
-            await state.set_state("формула 2ой кнопки")
+            data = await state.get_data()
+            sh = float(data["шаг"])
+            data = await state.get_data()
+            de = float(data["масса арматуры"])
+            await message.answer("Количество арматуры - " + str((((300 / float(sh)) * 2) * float(de)) / 9))
     else:
         await message.reply("Вы ввели не число. Повторите попытку")
-
-
-
-@dp.message_handler(state='формула 2ой кнопки')
-async def age_process(message: types.Message, state: FSMContext):
-    data = await state.get_data()
-    sh = float(data["шаг"])
-    data = await state.get_data()
-    de = float(data["масса арматуры"])
-    await message.answer("Количество арматуры - " + str((((300/float(sh))*2)*float(de))/9))
-
-
-
-
-
-
-
-
-
 
 
 
