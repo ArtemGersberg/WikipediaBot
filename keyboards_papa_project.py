@@ -4,7 +4,13 @@ from aiogram.types import \
 
 
 k1 = KeyboardButton("Расчет количества температурно-усадочных швов")
-k2 = KeyboardButton("Расчёт количества арматуры(на квадратный метр)")
+k2 = KeyboardButton("Расчёт количества арматуры")
+
+l1 = KeyboardButton("Расчёт количества арматуры(на квадратный метр)")
+l2 = KeyboardButton("Расчёт количества арматуры(на всю площадь)")
+
+lang_markup5 = ReplyKeyboardMarkup().add(l1).add(l2)
+
 
 
 lang_markup1 = ReplyKeyboardMarkup().add(k1).add(k2)

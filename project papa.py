@@ -6,7 +6,7 @@ from aiogram.dispatcher import Dispatcher
 from aiogram.dispatcher import FSMContext
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, ReplyKeyboardRemove
 from aiogram.utils import executor
-from keyboards_papa_project import lang_markup1,lang_markup2,lang_markup3,lang_markup4
+from keyboards_papa_project import lang_markup1,lang_markup2,lang_markup3,lang_markup4,lang_markup5
 
 TOKEN="5701505172:AAEFVT76AqvIMBCUZgJ9cY39BVumvFJNCIM"
 bot = Bot(token=TOKEN)
@@ -56,9 +56,20 @@ async def set_language(message: types.Message, state: FSMContext):
         await message.answer("Эта функция считает количество температурно-усадочных швов\nДля того чтобы получить их количество,введите все данные, которые запрашивает бот и он выведет ответ",reply_markup=ReplyKeyboardRemove())
         await message.answer("Введите площадь(в м²)")
         await state.set_state("площадь")
-    elif lang_markup1 == "Расчёт количества арматуры(на квадратный метр)":
+    elif lang_markup1 == "Расчёт количества арматуры":
+        await message.answer("На сколько расчитать количество арматуры",reply_markup=lang_markup5)
+        await state.set_state("на сколько расчитать")
+
+@dp.message_handler(state="на сколько расчитать")
+async def set_language(message: types.Message, state: FSMContext):
+    h=message.text
+    await state.update_data({"h": h})
+    if h=="Расчёт количества арматуры(на квадратный метр)":
         await message.answer("Выбирите скольки слойное армирование хотите сделать",reply_markup=lang_markup2)
         await state.set_state("Скольки слойное армироване")
+    elif h=="Расчёт количества арматуры(на всю площадь)":
+        await message.answer("Введите площадь объекта:",reply_markup=ReplyKeyboardRemove())
+        await state.set_state("Скольки слойное армироване на всю п")
 
 @dp.message_handler(state="Скольки слойное армироване")
 async def set_language(message: types.Message, state: FSMContext):
@@ -67,6 +78,24 @@ async def set_language(message: types.Message, state: FSMContext):
         await message.answer(
             "Эта функция считает количество арматуры на квадратный метр\nДля того чтобы получить это количество,введите все данные, которые запрашивает бот и он выведет ответ",
             reply_markup=ReplyKeyboardRemove())
+        await message.answer("Выберите диаметр арматуры(в мм)", reply_markup=lang_markup3)
+        await state.set_state("однослойное армирование")
+@dp.message_handler(state="Скольки слойное армироване на всю п")
+async def set_language(message: types.Message, state: FSMContext):
+    f = message.text
+    if isinstance(f, str) and f.isdigit():
+        await state.update_data({"f": f})
+        await message.answer("Выбирите скольки слойное армирование на всю площадь хотите сделать", reply_markup=lang_markup2)
+        await state.set_state("однослойное армирование на всю")
+    else:
+        await message.reply("Вы ввели не число. Повторите попытку")
+
+
+@dp.message_handler(state='однослойное армирование на всю')
+async def age_process(message: types.Message, state: FSMContext):
+    lang_markup2 = message.text
+    if lang_markup2 == "Однослойное армирование":
+        await message.answer("Эта функция считает количество арматуры на квадратный метр/всю площадь\nДля того чтобы получить это количество,введите все данные, которые запрашивает бот и он выведет ответ",reply_markup=ReplyKeyboardRemove())
         await message.answer("Выберите диаметр арматуры(в мм)", reply_markup=lang_markup3)
         await state.set_state("однослойное армирование")
 
@@ -109,6 +138,9 @@ async def age_process(message: types.Message, state: FSMContext):
 @dp.message_handler(state='шаг арматуры')
 async def age_process(message: types.Message, state: FSMContext):
     d = message.text
+    data = await state.get_data()
+
+    h = str(data["h"])
     if isinstance(d, str) and d.isdigit():
         if d == "100":
             shag20 = 100
@@ -117,7 +149,13 @@ async def age_process(message: types.Message, state: FSMContext):
             sh = float(data["шаг"])
             data = await state.get_data()
             de = float(data["масса арматуры"])
-            await message.answer("Количество арматуры - " + str((((3000 / float(sh)) * 2) * float(de)) / 9) +"кг/м³")
+            if h=="Расчёт количества арматуры(на квадратный метр)":
+                await message.answer("Количество арматуры на квадратный метр - " + str((((9000 / float(sh)) * 2) * float(de)) / 9) + "кг/м³",reply_markup=ReplyKeyboardRemove())
+            elif h=="Расчёт количества арматуры(на всю площадь)":
+                data = await state.get_data()
+                f = float(data["f"])
+                await message.answer("Количество арматуры на квадратный метр - " + str((((9000 / float(sh)) * 2) * float(de)) / 9) + "кг/м³",reply_markup=ReplyKeyboardRemove())
+                await message.answer("Количество арматуры на всю площадь - " + str(((((9000 / float(sh)) * 2) * float(de)) / 9)*float(f)) + "кг/м³",reply_markup=ReplyKeyboardRemove())
         elif d == "150":
             shag20 = 150
             await state.update_data({'шаг': float(shag20)})
@@ -125,7 +163,13 @@ async def age_process(message: types.Message, state: FSMContext):
             sh = float(data["шаг"])
             data = await state.get_data()
             de = float(data["масса арматуры"])
-            await message.answer("Количество арматуры - " + str((((9000 / float(sh)) * 2) * float(de)) / 9)+"кг/м³")
+            if h == "Расчёт количества арматуры(на квадратный метр)":
+                await message.answer("Количество арматуры на квадратный метр - " + str((((9000 / float(sh)) * 2) * float(de)) / 9) + "кг/м³",reply_markup=ReplyKeyboardRemove())
+            elif h == "Расчёт количества арматуры(на всю площадь)":
+                data = await state.get_data()
+                f = float(data["f"])
+                await message.answer("Количество арматуры на квадратный метр - " + str((((9000 / float(sh)) * 2) * float(de)) / 9) + "кг/м³",reply_markup=ReplyKeyboardRemove())
+                await message.answer("Количество арматуры на всю площадь - " + str(((((9000 / float(sh)) * 2) * float(de)) / 9) * float(f)) + "кг/м³",reply_markup=ReplyKeyboardRemove())
         elif d == "200":
             shag20 = 200
             await state.update_data({'шаг': float(shag20)})
@@ -133,7 +177,13 @@ async def age_process(message: types.Message, state: FSMContext):
             sh = float(data["шаг"])
             data = await state.get_data()
             de = float(data["масса арматуры"])
-            await message.answer("Количество арматуры - " + str((((9000 / float(sh)) * 2) * float(de)) / 9)+"кг/м³")
+            if h == "Расчёт количества арматуры(на квадратный метр)":
+                await message.answer("Количество арматуры на квадратный метр - " + str((((9000 / float(sh)) * 2) * float(de)) / 9) + "кг/м³",reply_markup=ReplyKeyboardRemove())
+            elif h == "Расчёт количества арматуры(на всю площадь)":
+                data = await state.get_data()
+                f = float(data["f"])
+                await message.answer("Количество арматуры на квадратный метр - " + str((((9000 / float(sh)) * 2) * float(de)) / 9) + "кг/м³",reply_markup=ReplyKeyboardRemove())
+                await message.answer("Количество арматуры на всю площадь - " + str(((((9000 / float(sh)) * 2) * float(de)) / 9) * float(f)) + "кг/м³",reply_markup=ReplyKeyboardRemove())
         elif d == "250":
             shag20 = 250
             await state.update_data({'шаг': float(shag20)})
@@ -141,7 +191,13 @@ async def age_process(message: types.Message, state: FSMContext):
             sh = float(data["шаг"])
             data = await state.get_data()
             de = float(data["масса арматуры"])
-            await message.answer("Количество арматуры - " + str((((9000 / float(sh)) * 2) * float(de)) / 9)+"кг/м³")
+            if h == "Расчёт количества арматуры(на квадратный метр)":
+                await message.answer("Количество арматуры на квадратный метр - " + str((((9000 / float(sh)) * 2) * float(de)) / 9) + "кг/м³",reply_markup=ReplyKeyboardRemove())
+            elif h == "Расчёт количества арматуры(на всю площадь)":
+                data = await state.get_data()
+                f = float(data["f"])
+                await message.answer("Количество арматуры на квадратный метр - " + str((((9000 / float(sh)) * 2) * float(de)) / 9) + "кг/м³",reply_markup=ReplyKeyboardRemove())
+                await message.answer("Количество арматуры на всю площадь - " + str(((((9000 / float(sh)) * 2) * float(de)) / 9) * float(f)) + "кг/м³",reply_markup=ReplyKeyboardRemove())
         elif d == "300":
             shag20 = 300
             await state.update_data({'шаг': float(shag20)})
@@ -149,7 +205,13 @@ async def age_process(message: types.Message, state: FSMContext):
             sh = float(data["шаг"])
             data = await state.get_data()
             de = float(data["масса арматуры"])
-            await message.answer("Количество арматуры - " + str((((9000 / float(sh)) * 2) * float(de)) / 9)+"кг/м³")
+            if h == "Расчёт количества арматуры(на квадратный метр)":
+                await message.answer("Количество арматуры на квадратный метр - " + str((((9000 / float(sh)) * 2) * float(de)) / 9) + "кг/м³",reply_markup=ReplyKeyboardRemove())
+            elif h == "Расчёт количества арматуры(на всю площадь)":
+                data = await state.get_data()
+                f = float(data["f"])
+                await message.answer("Количество арматуры на квадратный метр - " + str((((9000 / float(sh)) * 2) * float(de)) / 9) + "кг/м³",reply_markup=ReplyKeyboardRemove())
+                await message.answer("Количество арматуры на всю площадь - " + str(((((9000 / float(sh)) * 2) * float(de)) / 9) * float(f)) + "кг/м³",reply_markup=ReplyKeyboardRemove())
     else:
         await message.reply("Вы ввели не число. Повторите попытку")
 
