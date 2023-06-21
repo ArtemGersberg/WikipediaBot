@@ -74,11 +74,18 @@ async def set_language(message: types.Message, state: FSMContext):
 @dp.message_handler(state="Скольки слойное армироване")
 async def set_language(message: types.Message, state: FSMContext):
     lang_markup2 = message.text
+    await state.update_data({"сколько слоёв арматуры": lang_markup2})
     if lang_markup2 == "Однослойное армирование":
         await message.answer(
             "Эта функция считает количество арматуры на квадратный метр\nДля того чтобы получить это количество,введите все данные, которые запрашивает бот и он выведет ответ",
             reply_markup=ReplyKeyboardRemove())
         await message.answer("Выберите диаметр арматуры(в мм)", reply_markup=lang_markup3)
+        await state.set_state("однослойное армирование")
+    elif lang_markup2=="Двухслойное армирование":
+        await message.answer(
+            "Эта функция считает количество арматуры на квадратный метр c двуслойным армированием\nДля того чтобы получить это количество,введите все данные, которые запрашивает бот и он выведет ответ",
+            reply_markup=ReplyKeyboardRemove())
+        await message.answer("Выберите диаметр первого слоя арматуры(в мм)", reply_markup=lang_markup3)
         await state.set_state("однослойное армирование")
 @dp.message_handler(state="Скольки слойное армироване на всю п")
 async def set_language(message: types.Message, state: FSMContext):
@@ -103,35 +110,77 @@ async def age_process(message: types.Message, state: FSMContext):
 @dp.message_handler(state='однослойное армирование')
 async def age_process(message: types.Message, state: FSMContext):
     c = message.text
+    data = await state.get_data()
+    ckokclov = str(data["сколько слоёв арматуры"])
     if isinstance(c, str) and c.isdigit():
-        await state.update_data({'однослойное армирование': float(c)})
-        if c=="8":
-            dem20 = 0.395
-            await state.update_data({'масса арматуры': float(dem20)})
-            await message.answer("Теперь введите шаг арматуры",reply_markup=lang_markup4)
+        if ckokclov=="Однослойное армирование":
+            await state.update_data({'однослойное армирование': float(c)})
+            if c=="8":
+                dem20 = 0.395
+                await state.update_data({'масса арматуры': float(dem20)})
+                await message.answer("Теперь введите шаг арматуры",reply_markup=lang_markup4)
+                await state.set_state("шаг арматуры")
+            elif c=="10":
+                dem20 = 0.617
+                await state.update_data({'масса арматуры': float(dem20)})
+                await message.answer("Теперь введите шаг арматуры", reply_markup=lang_markup4)
+                await state.set_state("шаг арматуры")
+            elif c=="12":
+                dem20 = 0.888
+                await state.update_data({'масса арматуры': float(dem20)})
+                await message.answer("Теперь введите шаг арматуры", reply_markup=lang_markup4)
+                await state.set_state("шаг арматуры")
+            elif c=="14":
+                dem20 = 1.210
+                await state.update_data({'масса арматуры': float(dem20)})
+                await message.answer("Теперь введите шаг арматуры", reply_markup=lang_markup4)
+                await state.set_state("шаг арматуры")
+            elif c=="16":
+                dem20 = 1.580
+                await state.update_data({'масса арматуры': float(dem20)})
+                await message.answer("Теперь введите шаг арматуры(в мм)", reply_markup=lang_markup4)
+                await state.set_state("шаг арматуры")
+        elif ckokclov=="Двухслойное армирование":
+            await message.answer("Введите диаметр второго слоя арматуры(в мм)", reply_markup=lang_markup3)
+            await state.set_state("второй слой армирования на м2")
+    else:
+        await message.reply("Вы ввели не число. Повторите попытку")
+
+
+@dp.message_handler(state='второй слой армирования на м2')
+async def age_process(message: types.Message, state: FSMContext):
+    p = message.text
+    if isinstance(p, str) and p.isdigit():
+        await state.update_data({'однослойное армирование': float(p)})
+        if p=="8":
+            dem201 = 0.395
+            await state.update_data({'масса арматуры2слой': float(dem201)})
+            await message.answer("Теперь введите шаг первого слоя арматуры(в мм)",reply_markup=lang_markup4)
             await state.set_state("шаг арматуры")
-        elif c=="10":
-            dem20 = 0.617
-            await state.update_data({'масса арматуры': float(dem20)})
-            await message.answer("Теперь введите шаг арматуры", reply_markup=lang_markup4)
+        elif p=="10":
+            dem201 = 0.617
+            await state.update_data({'масса арматуры2слой': float(dem201)})
+            await message.answer("Теперь введите шаг первого слоя арматуры(в мм)", reply_markup=lang_markup4)
             await state.set_state("шаг арматуры")
-        elif c=="12":
-            dem20 = 0.888
-            await state.update_data({'масса арматуры': float(dem20)})
-            await message.answer("Теперь введите шаг арматуры", reply_markup=lang_markup4)
+        elif p=="12":
+            dem201 = 0.888
+            await state.update_data({'масса арматуры2слой': float(dem201)})
+            await message.answer("Теперь введите шаг первого слоя арматуры(в мм)", reply_markup=lang_markup4)
             await state.set_state("шаг арматуры")
-        elif c=="14":
-            dem20 = 1.210
-            await state.update_data({'масса арматуры': float(dem20)})
-            await message.answer("Теперь введите шаг арматуры", reply_markup=lang_markup4)
+        elif p=="14":
+            dem201 = 1.210
+            await state.update_data({'масса арматуры2слой': float(dem201)})
+            await message.answer("Теперь введите шаг первого слоя арматуры(в мм)", reply_markup=lang_markup4)
             await state.set_state("шаг арматуры")
-        elif c=="16":
-            dem20 = 1.580
-            await state.update_data({'масса арматуры': float(dem20)})
-            await message.answer("Теперь введите шаг арматуры(в мм)", reply_markup=lang_markup4)
+        elif p=="16":
+            dem201 = 1.580
+            await state.update_data({'масса арматуры2слой': float(dem201)})
+            await message.answer("Теперь введите шаг первого слоя арматуры(в мм)", reply_markup=lang_markup4)
             await state.set_state("шаг арматуры")
     else:
         await message.reply("Вы ввели не число. Повторите попытку")
+
+    await state.set_state("шаг арматуры")
 
 
 
@@ -139,81 +188,211 @@ async def age_process(message: types.Message, state: FSMContext):
 async def age_process(message: types.Message, state: FSMContext):
     d = message.text
     data = await state.get_data()
-
+    ckokclov = str(data["сколько слоёв арматуры"])
     h = str(data["h"])
     if isinstance(d, str) and d.isdigit():
-        if d == "100":
-            shag20 = 100
-            await state.update_data({'шаг': float(shag20)})
-            data = await state.get_data()
-            sh = float(data["шаг"])
-            data = await state.get_data()
-            de = float(data["масса арматуры"])
-            if h=="Расчёт количества арматуры(на квадратный метр)":
-                await message.answer("Количество арматуры на квадратный метр - " + str((((9000 / float(sh)) * 2) * float(de)) / 9) + "кг/м³",reply_markup=ReplyKeyboardRemove())
-            elif h=="Расчёт количества арматуры(на всю площадь)":
+        if ckokclov=="Однослойное армирование":
+            if d == "100":
+                shag20 = 100
+                await state.update_data({'шаг': float(shag20)})
                 data = await state.get_data()
-                f = float(data["f"])
-                await message.answer("Количество арматуры на квадратный метр - " + str((((9000 / float(sh)) * 2) * float(de)) / 9) + "кг/м³",reply_markup=ReplyKeyboardRemove())
-                await message.answer("Количество арматуры на всю площадь - " + str(((((9000 / float(sh)) * 2) * float(de)) / 9)*float(f)) + "кг/м³",reply_markup=ReplyKeyboardRemove())
-        elif d == "150":
-            shag20 = 150
-            await state.update_data({'шаг': float(shag20)})
-            data = await state.get_data()
-            sh = float(data["шаг"])
-            data = await state.get_data()
-            de = float(data["масса арматуры"])
-            if h == "Расчёт количества арматуры(на квадратный метр)":
-                await message.answer("Количество арматуры на квадратный метр - " + str((((9000 / float(sh)) * 2) * float(de)) / 9) + "кг/м³",reply_markup=ReplyKeyboardRemove())
-            elif h == "Расчёт количества арматуры(на всю площадь)":
+                sh = float(data["шаг"])
                 data = await state.get_data()
-                f = float(data["f"])
-                await message.answer("Количество арматуры на квадратный метр - " + str((((9000 / float(sh)) * 2) * float(de)) / 9) + "кг/м³",reply_markup=ReplyKeyboardRemove())
-                await message.answer("Количество арматуры на всю площадь - " + str(((((9000 / float(sh)) * 2) * float(de)) / 9) * float(f)) + "кг/м³",reply_markup=ReplyKeyboardRemove())
-        elif d == "200":
-            shag20 = 200
-            await state.update_data({'шаг': float(shag20)})
-            data = await state.get_data()
-            sh = float(data["шаг"])
-            data = await state.get_data()
-            de = float(data["масса арматуры"])
-            if h == "Расчёт количества арматуры(на квадратный метр)":
-                await message.answer("Количество арматуры на квадратный метр - " + str((((9000 / float(sh)) * 2) * float(de)) / 9) + "кг/м³",reply_markup=ReplyKeyboardRemove())
-            elif h == "Расчёт количества арматуры(на всю площадь)":
+                de = float(data["масса арматуры"])
+                if h=="Расчёт количества арматуры(на квадратный метр)":
+                    await message.answer("Количество арматуры на квадратный метр - " + str((((9000 / float(sh)) * 2) * float(de)) / 9) + "кг/м²",reply_markup=ReplyKeyboardRemove())
+                elif h=="Расчёт количества арматуры(на всю площадь)":
+                    data = await state.get_data()
+                    f = float(data["f"])
+                    await message.answer("Количество арматуры на квадратный метр - " + str((((9000 / float(sh)) * 2) * float(de)) / 9) + "кг/м²",reply_markup=ReplyKeyboardRemove())
+                    await message.answer("Количество арматуры на всю площадь - " + str(((((9000 / float(sh)) * 2) * float(de)) / 9)*float(f)) + "кг",reply_markup=ReplyKeyboardRemove())
+            elif d == "150":
+                shag20 = 150
+                await state.update_data({'шаг': float(shag20)})
                 data = await state.get_data()
-                f = float(data["f"])
-                await message.answer("Количество арматуры на квадратный метр - " + str((((9000 / float(sh)) * 2) * float(de)) / 9) + "кг/м³",reply_markup=ReplyKeyboardRemove())
-                await message.answer("Количество арматуры на всю площадь - " + str(((((9000 / float(sh)) * 2) * float(de)) / 9) * float(f)) + "кг/м³",reply_markup=ReplyKeyboardRemove())
-        elif d == "250":
-            shag20 = 250
-            await state.update_data({'шаг': float(shag20)})
-            data = await state.get_data()
-            sh = float(data["шаг"])
-            data = await state.get_data()
-            de = float(data["масса арматуры"])
-            if h == "Расчёт количества арматуры(на квадратный метр)":
-                await message.answer("Количество арматуры на квадратный метр - " + str((((9000 / float(sh)) * 2) * float(de)) / 9) + "кг/м³",reply_markup=ReplyKeyboardRemove())
-            elif h == "Расчёт количества арматуры(на всю площадь)":
+                sh = float(data["шаг"])
                 data = await state.get_data()
-                f = float(data["f"])
-                await message.answer("Количество арматуры на квадратный метр - " + str((((9000 / float(sh)) * 2) * float(de)) / 9) + "кг/м³",reply_markup=ReplyKeyboardRemove())
-                await message.answer("Количество арматуры на всю площадь - " + str(((((9000 / float(sh)) * 2) * float(de)) / 9) * float(f)) + "кг/м³",reply_markup=ReplyKeyboardRemove())
-        elif d == "300":
-            shag20 = 300
-            await state.update_data({'шаг': float(shag20)})
-            data = await state.get_data()
-            sh = float(data["шаг"])
-            data = await state.get_data()
-            de = float(data["масса арматуры"])
-            if h == "Расчёт количества арматуры(на квадратный метр)":
-                await message.answer("Количество арматуры на квадратный метр - " + str((((9000 / float(sh)) * 2) * float(de)) / 9) + "кг/м³",reply_markup=ReplyKeyboardRemove())
-            elif h == "Расчёт количества арматуры(на всю площадь)":
+                de = float(data["масса арматуры"])
+                if h == "Расчёт количества арматуры(на квадратный метр)":
+                    await message.answer("Количество арматуры на квадратный метр - " + str((((9000 / float(sh)) * 2) * float(de)) / 9) + "кг/м²",reply_markup=ReplyKeyboardRemove())
+                elif h == "Расчёт количества арматуры(на всю площадь)":
+                    data = await state.get_data()
+                    f = float(data["f"])
+                    await message.answer("Количество арматуры на квадратный метр - " + str((((9000 / float(sh)) * 2) * float(de)) / 9) + "кг/м²",reply_markup=ReplyKeyboardRemove())
+                    await message.answer("Количество арматуры на всю площадь - " + str(((((9000 / float(sh)) * 2) * float(de)) / 9) * float(f)) + "кг",reply_markup=ReplyKeyboardRemove())
+            elif d == "200":
+                shag20 = 200
+                await state.update_data({'шаг': float(shag20)})
                 data = await state.get_data()
-                f = float(data["f"])
-                await message.answer("Количество арматуры на квадратный метр - " + str((((9000 / float(sh)) * 2) * float(de)) / 9) + "кг/м³",reply_markup=ReplyKeyboardRemove())
-                await message.answer("Количество арматуры на всю площадь - " + str(((((9000 / float(sh)) * 2) * float(de)) / 9) * float(f)) + "кг/м³",reply_markup=ReplyKeyboardRemove())
+                sh = float(data["шаг"])
+                data = await state.get_data()
+                de = float(data["масса арматуры"])
+                if h == "Расчёт количества арматуры(на квадратный метр)":
+                    await message.answer("Количество арматуры на квадратный метр - " + str((((9000 / float(sh)) * 2) * float(de)) / 9) + "кг/м²",reply_markup=ReplyKeyboardRemove())
+                elif h == "Расчёт количества арматуры(на всю площадь)":
+                    data = await state.get_data()
+                    f = float(data["f"])
+                    await message.answer("Количество арматуры на квадратный метр - " + str((((9000 / float(sh)) * 2) * float(de)) / 9) + "кг/м²",reply_markup=ReplyKeyboardRemove())
+                    await message.answer("Количество арматуры на всю площадь - " + str(((((9000 / float(sh)) * 2) * float(de)) / 9) * float(f)) + "кг",reply_markup=ReplyKeyboardRemove())
+            elif d == "250":
+                shag20 = 250
+                await state.update_data({'шаг': float(shag20)})
+                data = await state.get_data()
+                sh = float(data["шаг"])
+                data = await state.get_data()
+                de = float(data["масса арматуры"])
+                if h == "Расчёт количества арматуры(на квадратный метр)":
+                    await message.answer("Количество арматуры на квадратный метр - " + str((((9000 / float(sh)) * 2) * float(de)) / 9) + "кг/м²",reply_markup=ReplyKeyboardRemove())
+                elif h == "Расчёт количества арматуры(на всю площадь)":
+                    data = await state.get_data()
+                    f = float(data["f"])
+                    await message.answer("Количество арматуры на квадратный метр - " + str((((9000 / float(sh)) * 2) * float(de)) / 9) + "кг/м²",reply_markup=ReplyKeyboardRemove())
+                    await message.answer("Количество арматуры на всю площадь - " + str(((((9000 / float(sh)) * 2) * float(de)) / 9) * float(f)) + "кг",reply_markup=ReplyKeyboardRemove())
+            elif d == "300":
+                shag20 = 300
+                await state.update_data({'шаг': float(shag20)})
+                data = await state.get_data()
+                sh = float(data["шаг"])
+                data = await state.get_data()
+                de = float(data["масса арматуры"])
+                if h == "Расчёт количества арматуры(на квадратный метр)":
+                    await message.answer("Количество арматуры на квадратный метр - " + str((((9000 / float(sh)) * 2) * float(de)) / 9) + "кг/м²",reply_markup=ReplyKeyboardRemove())
+                elif h == "Расчёт количества арматуры(на всю площадь)":
+                    data = await state.get_data()
+                    f = float(data["f"])
+                    await message.answer("Количество арматуры на квадратный метр - " + str((((9000 / float(sh)) * 2) * float(de)) / 9) + "кг/м²",reply_markup=ReplyKeyboardRemove())
+                    await message.answer("Количество арматуры на всю площадь - " + str(((((9000 / float(sh)) * 2) * float(de)) / 9) * float(f)) + "кг",reply_markup=ReplyKeyboardRemove())
+        elif ckokclov=="Двухслойное армирование":
+            await message.answer("Введите шаг второго слоя арматуры(в мм)", reply_markup=lang_markup4)
+            await state.set_state("второй слой армирования на м2 шаг")
+
     else:
         await message.reply("Вы ввели не число. Повторите попытку")
+
+@dp.message_handler(state='второй слой армирования на м2 шаг')
+async def age_process(message: types.Message, state: FSMContext):
+    o = message.text
+    data = await state.get_data()
+    h = str(data["h"])
+    if isinstance(o, str) and o.isdigit():
+        if o == "100":
+            shag201 = 100
+            await state.update_data({'шаг2слой': float(shag201)})
+            data = await state.get_data()
+            sh = float(data["шаг"])
+            data = await state.get_data()
+            de = float(data["масса арматуры"])
+            data = await state.get_data()
+            sh2 = float(data["шаг2слой"])
+            data = await state.get_data()
+            de2 = float(data["масса арматуры"])
+            if h == "Расчёт количества арматуры(на квадратный метр)":
+                await message.answer("Количество арматуры необходимое для первого слоя(в м²) - " + str(
+                    (((9000 / float(sh)) * 2) * float(de)) / 9) + "кг/м²", reply_markup=ReplyKeyboardRemove())
+                await message.answer("Количество арматуры необходимое для второго слоя(в м²) - " + str(
+                    (((9000 / float(sh2)) * 2) * float(de2)) / 9) + "кг/м²", reply_markup=ReplyKeyboardRemove())
+            elif h == "Расчёт количества арматуры(на всю площадь)":
+                data = await state.get_data()
+                f = float(data["f"])
+                await message.answer("Количество арматуры на квадратный метр - " + str(
+                    (((9000 / float(sh)) * 2) * float(de)) / 9) + "кг/м²", reply_markup=ReplyKeyboardRemove())
+                await message.answer("Количество арматуры на всю площадь - " + str(
+                    ((((9000 / float(sh)) * 2) * float(de)) / 9) * float(f)) + "кг", reply_markup=ReplyKeyboardRemove())
+        elif o == "150":
+            shag201 = 150
+            await state.update_data({'шаг2слой': float(shag201)})
+            data = await state.get_data()
+            sh = float(data["шаг"])
+            data = await state.get_data()
+            de = float(data["масса арматуры"])
+            data = await state.get_data()
+            sh2 = float(data["шаг2слой"])
+            data = await state.get_data()
+            de2 = float(data["масса арматуры"])
+            if h == "Расчёт количества арматуры(на квадратный метр)":
+                await message.answer("Количество арматуры необходимое для первого слоя(в м²) - " + str(
+                    (((9000 / float(sh)) * 2) * float(de)) / 9) + "кг/м²", reply_markup=ReplyKeyboardRemove())
+                await message.answer("Количество арматуры необходимое для второго слоя(в м²) - " + str(
+                    (((9000 / float(sh2)) * 2) * float(de2)) / 9) + "кг/м²", reply_markup=ReplyKeyboardRemove())
+            elif h == "Расчёт количества арматуры(на всю площадь)":
+                data = await state.get_data()
+                f = float(data["f"])
+                await message.answer("Количество арматуры на квадратный метр - " + str(
+                    (((9000 / float(sh)) * 2) * float(de)) / 9) + "кг/м²", reply_markup=ReplyKeyboardRemove())
+                await message.answer("Количество арматуры на всю площадь - " + str(
+                    ((((9000 / float(sh)) * 2) * float(de)) / 9) * float(f)) + "кг", reply_markup=ReplyKeyboardRemove())
+        elif o == "200":
+            shag201 = 200
+            await state.update_data({'шаг2слой': float(shag201)})
+            data = await state.get_data()
+            sh = float(data["шаг"])
+            data = await state.get_data()
+            de = float(data["масса арматуры"])
+            data = await state.get_data()
+            sh2 = float(data["шаг2слой"])
+            data = await state.get_data()
+            de2 = float(data["масса арматуры2слой"])
+            if h == "Расчёт количества арматуры(на квадратный метр)":
+                await message.answer("Количество арматуры необходимое для первого слоя(в м²) - " + str(
+                    (((9000 / float(sh)) * 2) * float(de)) / 9) + "кг/м²", reply_markup=ReplyKeyboardRemove())
+                await message.answer("Количество арматуры необходимое для второго слоя(в м²) - " + str(
+                    (((9000 / float(sh2)) * 2) * float(de2)) / 9) + "кг/м²", reply_markup=ReplyKeyboardRemove())
+            elif h == "Расчёт количества арматуры(на всю площадь)":
+                data = await state.get_data()
+                f = float(data["f"])
+                await message.answer("Количество арматуры на квадратный метр - " + str(
+                    (((9000 / float(sh)) * 2) * float(de)) / 9) + "кг/м²", reply_markup=ReplyKeyboardRemove())
+                await message.answer("Количество арматуры на всю площадь - " + str(
+                    ((((9000 / float(sh)) * 2) * float(de)) / 9) * float(f)) + "кг", reply_markup=ReplyKeyboardRemove())
+        elif o == "250":
+            shag201 = 250
+            await state.update_data({'шаг2слой': float(shag201)})
+            data = await state.get_data()
+            sh = float(data["шаг"])
+            data = await state.get_data()
+            de = float(data["масса арматуры"])
+            data = await state.get_data()
+            sh2 = float(data["шаг2слой"])
+            data = await state.get_data()
+            de2 = float(data["масса арматуры2слой"])
+            if h == "Расчёт количества арматуры(на квадратный метр)":
+                await message.answer("Количество арматуры необходимое для первого слоя(в м²) - " + str(
+                    (((9000 / float(sh)) * 2) * float(de)) / 9) + "кг/м²", reply_markup=ReplyKeyboardRemove())
+                await message.answer("Количество арматуры необходимое для второго слоя(в м²) - " + str(
+                    (((9000 / float(sh2)) * 2) * float(de2)) / 9) + "кг/м²", reply_markup=ReplyKeyboardRemove())
+            elif h == "Расчёт количества арматуры(на всю площадь)":
+                data = await state.get_data()
+                f = float(data["f"])
+                await message.answer("Количество арматуры на квадратный метр - " + str(
+                    (((9000 / float(sh)) * 2) * float(de)) / 9) + "кг/м²", reply_markup=ReplyKeyboardRemove())
+                await message.answer("Количество арматуры на всю площадь - " + str(
+                    ((((9000 / float(sh)) * 2) * float(de)) / 9) * float(f)) + "кг", reply_markup=ReplyKeyboardRemove())
+        elif o == "300":
+            shag201 = 300
+            await state.update_data({'шаг2слой': float(shag201)})
+            data = await state.get_data()
+            sh = float(data["шаг"])
+            data = await state.get_data()
+            de = float(data["масса арматуры"])
+            data = await state.get_data()
+            sh2 = float(data["шаг2слой"])
+            data = await state.get_data()
+            de2 = float(data["масса арматуры2слой"])
+            if h == "Расчёт количества арматуры(на квадратный метр)":
+                await message.answer("Количество арматуры необходимое для первого слоя(в м²) - " + str(
+                    (((9000 / float(sh)) * 2) * float(de)) / 9) + "кг/м²", reply_markup=ReplyKeyboardRemove())
+                await message.answer("Количество арматуры необходимое для второго слоя(в м²) - " + str(
+                    (((9000 / float(sh2)) * 2) * float(de2)) / 9) + "кг/м²", reply_markup=ReplyKeyboardRemove())
+            elif h == "Расчёт количества арматуры(на всю площадь)":
+                data = await state.get_data()
+                f = float(data["f"])
+                await message.answer("Количество арматуры на квадратный метр - " + str(
+                    (((9000 / float(sh)) * 2) * float(de)) / 9) + "кг/м²", reply_markup=ReplyKeyboardRemove())
+                await message.answer("Количество арматуры на всю площадь - " + str(
+                    ((((9000 / float(sh)) * 2) * float(de)) / 9) * float(f)) + "кг", reply_markup=ReplyKeyboardRemove())
+
+
+
 
 
 
