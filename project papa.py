@@ -341,7 +341,7 @@ async def age_process(message: types.Message, state: FSMContext):
             data = await state.get_data()
             sh = float(data["d"])
             data = await state.get_data()
-            de = float(data["'масса арматуры'"])
+            de = float(data['масса арматуры'])
             data = await state.get_data()
             sh2 = float(data["шаг2слой"])
             data = await state.get_data()
