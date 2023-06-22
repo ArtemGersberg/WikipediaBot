@@ -66,7 +66,10 @@ async def age_process(message: types.Message, state: FSMContext):
                 await message.answer("Количество необходимого вилатерм шнура - "+ str(int((float(a//(float(b)*30//1000)**2)*(float(b)*30//1000)*2)*1.1))+" п.м.")
                 if (float(a//(float(b)*30//1000)**2)*(float(b)*30//1000)*2)%10==0:
                     await message.answer("Количесто необходимого полиуретанового герметика в банках по 600мл - "+ str(int((float(a//(float(b)*30//1000)**2)*(float(b)*30//1000)*2)/10)) + " шт")
-
+                else:
+                    await message.answer("Количесто необходимого полиуретанового герметика в банках по 600мл - " + str(
+                        int(((float(a // (float(b) * 30 // 1000) ** 2) * (
+                                    float(b) * 30 // 1000) * 2) / 10) + 1)) + " шт")
     else:
         await message.reply("Вы ввели не число. Повторите попытку")
 
