@@ -1,4 +1,3 @@
-
 import aiogram.types
 from aiogram import Bot, types
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
@@ -141,6 +140,7 @@ async def age_process(message: types.Message, state: FSMContext):
 @dp.message_handler(state='однослойное армирование')
 async def age_process(message: types.Message, state: FSMContext):
     c = message.text
+    await state.update_data({'c': c})
     data = await state.get_data()
     ckokclov = str(data["сколько слоёв арматуры"])
     if isinstance(c, str) and c.isdigit():
@@ -218,6 +218,7 @@ async def age_process(message: types.Message, state: FSMContext):
 @dp.message_handler(state='шаг арматуры')
 async def age_process(message: types.Message, state: FSMContext):
     d = message.text
+    await state.update_data({'d': d})
     data = await state.get_data()
     ckokclov = str(data["сколько слоёв арматуры"])
     h = str(data["h"])
@@ -310,13 +311,13 @@ async def age_process(message: types.Message, state: FSMContext):
             shag201 = 100
             await state.update_data({'шаг2слой': float(shag201)})
             data = await state.get_data()
-            sh = float(data["шаг"])
+            sh = float(data["d"])
             data = await state.get_data()
-            de = float(data["масса арматуры"])
+            de = float(data["c"])
             data = await state.get_data()
             sh2 = float(data["шаг2слой"])
             data = await state.get_data()
-            de2 = float(data["масса арматуры"])
+            de2 = float(data["масса арматуры2слой"])
             if h == "Расчёт количества арматуры(на квадратный метр)":
                 await message.answer("Количество арматуры необходимое для первого слоя(в м²) - " + str(
                     (((9000 / float(sh)) * 2) * float(de)) / 9) + "кг/м²", reply_markup=ReplyKeyboardRemove())
@@ -338,13 +339,13 @@ async def age_process(message: types.Message, state: FSMContext):
             shag201 = 150
             await state.update_data({'шаг2слой': float(shag201)})
             data = await state.get_data()
-            sh = float(data["шаг"])
+            sh = float(data["d"])
             data = await state.get_data()
-            de = float(data["масса арматуры"])
+            de = float(data["c"])
             data = await state.get_data()
             sh2 = float(data["шаг2слой"])
             data = await state.get_data()
-            de2 = float(data["масса арматуры"])
+            de2 = float(data["масса арматуры2слой"])
             if h == "Расчёт количества арматуры(на квадратный метр)":
                 await message.answer("Количество арматуры необходимое для первого слоя(в м²) - " + str(
                     (((9000 / float(sh)) * 2) * float(de)) / 9) + "кг/м²", reply_markup=ReplyKeyboardRemove())
@@ -366,9 +367,9 @@ async def age_process(message: types.Message, state: FSMContext):
             shag201 = 200
             await state.update_data({'шаг2слой': float(shag201)})
             data = await state.get_data()
-            sh = float(data["шаг"])
+            sh = float(data["d"])
             data = await state.get_data()
-            de = float(data["масса арматуры"])
+            de = float(data["c"])
             data = await state.get_data()
             sh2 = float(data["шаг2слой"])
             data = await state.get_data()
@@ -394,9 +395,9 @@ async def age_process(message: types.Message, state: FSMContext):
             shag201 = 250
             await state.update_data({'шаг2слой': float(shag201)})
             data = await state.get_data()
-            sh = float(data["шаг"])
+            sh = float(data["d"])
             data = await state.get_data()
-            de = float(data["масса арматуры"])
+            de = float(data["c"])
             data = await state.get_data()
             sh2 = float(data["шаг2слой"])
             data = await state.get_data()
@@ -422,9 +423,9 @@ async def age_process(message: types.Message, state: FSMContext):
             shag201 = 300
             await state.update_data({'шаг2слой': float(shag201)})
             data = await state.get_data()
-            sh = float(data["шаг"])
+            sh = float(data["d"])
             data = await state.get_data()
-            de = float(data["масса арматуры"])
+            de = float(data["c"])
             data = await state.get_data()
             sh2 = float(data["шаг2слой"])
             data = await state.get_data()
