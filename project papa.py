@@ -3,9 +3,10 @@ from aiogram import Bot, types
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.dispatcher import Dispatcher
 from aiogram.dispatcher import FSMContext
-from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, ReplyKeyboardRemove
+from aiogram.types import  ReplyKeyboardRemove
 from aiogram.utils import executor
-from keyboards_papa_project import lang_markup1,lang_markup2,lang_markup3,lang_markup4,lang_markup5
+from keyboards_papa_project import lang_markup1,lang_markup2,lang_markup3,lang_markup4,lang_markup5,lang_markup6,lang_markup7,lang_markup8 ,\
+lang_markup9,lang_markup10,lang_markup11
 
 TOKEN="5701505172:AAEFVT76AqvIMBCUZgJ9cY39BVumvFJNCIM"
 bot = Bot(token=TOKEN)
@@ -14,8 +15,93 @@ dp = Dispatcher(bot, storage=MemoryStorage())
 
 @dp.message_handler(commands=['start'], state="*")
 async def setup_language(message: types.Message, state: FSMContext):
-    await message.answer("Выбор действия", reply_markup=lang_markup1)
-    await state.set_state("wait_knopka")
+    await message.answer("Выберите тип полов ", reply_markup=lang_markup6)
+    await state.set_state("Выбор вида полов")
+
+@dp.message_handler(state='Выбор вида полов')
+async def age_process(message: types.Message, state: FSMContext):
+    ab = message.text
+    await state.update_data({"ab": ab})
+    if ab=="Полимерные полы":
+        await message.answer("Выберите тип материала",reply_markup=lang_markup7)
+        await state.set_state("Выбор типа полов")
+    else:
+        await message.answer("Выбор действия", reply_markup=lang_markup1)
+        await state.set_state("wait_knopka")
+
+@dp.message_handler(state='Выбор типа полов')
+async def age_process(message: types.Message, state: FSMContext):
+    ac = message.text
+    await state.update_data({"aс": ac})
+    if ac=="Эпоксидные":
+        await message.answer("Выберите фактуру",reply_markup=lang_markup8)
+        await state.set_state("Выбор фактуры полов(Эпоксидные)")
+    elif ac=="Полиуретановые":
+        await message.answer("Идёт разработка...")
+
+    elif ac=="Полиуретан-цементные":
+        await message.answer("Идёт разработка...")
+
+@dp.message_handler(state='Выбор фактуры полов(Эпоксидные)')
+async def age_process(message: types.Message, state: FSMContext):
+    ad = message.text
+    await state.update_data({"ad": ad})
+    if ad=="Гладкое":
+        await message.answer("Выберите толщину покрытия гладкой фактуры",reply_markup=lang_markup9)
+        await state.set_state("Выбор толщины(Гладкое)")
+    elif ad=="Шероховатое":
+        await message.answer("Выберите толщину покрытия шероховатой фактуры", reply_markup=lang_markup10)
+        await state.set_state("Выбор толщины(Шероховатое)")
+    elif ad=="Декоративное":
+        await message.answer("Выберите толщину покрытия декоративной фактуры", reply_markup=lang_markup11)
+        await state.set_state("Выбор толщины(Декоративное)")
+
+@dp.message_handler(state='Выбор толщины(Декоративное)')
+async def age_process(message: types.Message, state: FSMContext):
+    au = message.text
+    await state.update_data({"au": au})
+    if au=="1 мм":
+        await state.update_data({"Толщина(Декоративное)": 1})
+        await message.answer("Идёт разработка...")
+    elif au=="2 мм":
+        await state.update_data({"Толщина(Декоративное)": 2})
+        await message.answer("Идёт разработка...")
+
+
+
+@dp.message_handler(state='Выбор толщины(Шероховатое)')
+async def age_process(message: types.Message, state: FSMContext):
+    ai = message.text
+    await state.update_data({"ai": ai})
+    if ai == "1,5 мм":
+        await state.update_data({"Толщина(Шероховатое)": 1.5})
+        await message.answer("Идёт разработка...")
+    elif ai == "2,5 мм":
+        await state.update_data({"Толщина(Шероховатое)": 2.5})
+        await message.answer("Идёт разработка...")
+    elif ai == "4 мм":
+        await state.update_data({"Толщина(Шероховатое)": 4})
+        await message.answer("Идёт разработка...")
+    elif ai == "5 мм":
+        await state.update_data({"Толщина(Шероховатое)": 5})
+        await message.answer("Идёт разработка...")
+
+
+
+@dp.message_handler(state='Выбор толщины(Гладкое)')
+async def age_process(message: types.Message, state: FSMContext):
+    ae=message.text
+    await state.update_data({"ae": ae})
+    if ae=="1 мм":
+        await state.update_data({"Толщина(Гладкое)": 1})
+        await message.answer("Идёт разработка...")
+    elif ae=="2 мм":
+        await state.update_data({"Толщина(Гладкое)": 2})
+        await message.answer("Идёт разработка...")
+    elif ae=="3 мм":
+        await state.update_data({"Толщина(Гладкое)": 3})
+        await message.answer("Идёт разработка...")
+
 
 @dp.message_handler(state='площадь')
 async def age_process(message: types.Message, state: FSMContext):
