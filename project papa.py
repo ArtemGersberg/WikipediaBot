@@ -172,8 +172,31 @@ async def age_process(message: types.Message, state: FSMContext):
                 await message.answer("Теперь введите шаг арматуры(в мм)", reply_markup=lang_markup4)
                 await state.set_state("шаг арматуры")
         elif ckokclov=="Двухслойное армирование":
-            await message.answer("Введите диаметр второго слоя арматуры(в мм)", reply_markup=lang_markup3)
-            await state.set_state("второй слой армирования на м2")
+            if c=="8":
+                dem20 = 0.395
+                await state.update_data({'масса арматуры': float(dem20)})
+                await message.answer("Введите диаметр второго слоя арматуры(в мм)", reply_markup=lang_markup3)
+                await state.set_state("второй слой армирования на м2")
+            elif c=="10":
+                dem20 = 0.617
+                await state.update_data({'масса арматуры': float(dem20)})
+                await message.answer("Введите диаметр второго слоя арматуры(в мм)", reply_markup=lang_markup3)
+                await state.set_state("второй слой армирования на м2")
+            elif c=="12":
+                dem20 = 0.888
+                await state.update_data({'масса арматуры': float(dem20)})
+                await message.answer("Введите диаметр второго слоя арматуры(в мм)", reply_markup=lang_markup3)
+                await state.set_state("второй слой армирования на м2")
+            elif c=="14":
+                dem20 = 1.210
+                await state.update_data({'масса арматуры': float(dem20)})
+                await message.answer("Введите диаметр второго слоя арматуры(в мм)", reply_markup=lang_markup3)
+                await state.set_state("второй слой армирования на м2")
+            elif c=="16":
+                dem20 = 1.580
+                await state.update_data({'масса арматуры': float(dem20)})
+                await message.answer("Введите диаметр второго слоя арматуры(в мм)", reply_markup=lang_markup3)
+                await state.set_state("второй слой армирования на м2")
     else:
         await message.reply("Вы ввели не число. Повторите попытку")
 
