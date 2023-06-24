@@ -5,7 +5,7 @@ from aiogram.dispatcher import FSMContext
 from aiogram.types import  ReplyKeyboardRemove
 from aiogram.utils import executor
 from keyboards_papa_project import lang_markup1,lang_markup2,lang_markup3,lang_markup4,lang_markup5,lang_markup6,lang_markup7,lang_markup8 ,\
-lang_markup9,lang_markup10,lang_markup11
+lang_markup9,lang_markup10,lang_markup11,lang_markup,lang_markup102
 
 TOKEN="5701505172:AAEFVT76AqvIMBCUZgJ9cY39BVumvFJNCIM"
 bot = Bot(token=TOKEN)
@@ -14,7 +14,41 @@ dp = Dispatcher(bot, storage=MemoryStorage())
 
 @dp.message_handler(commands=['start'], state="*")
 async def setup_language(message: types.Message, state: FSMContext):
-    await message.answer("Выберите тип полов ", reply_markup=lang_markup6)
+    await message.answer("Выберите нужную вам кнопку", reply_markup=lang_markup)
+    await state.set_state("Выборпристарте")
+
+@dp.message_handler(state='Выборпристарте')
+async def age_process(message: types.Message, state: FSMContext):
+    abc = message.text
+    if abc=="Расчёт материала для полов":
+        await message.answer("Выберите тип полов", reply_markup=lang_markup6)
+        await state.set_state("Выбор вида полов")
+    elif abc=="Инструкция/связь с администрацией":
+        await message.answer("Выберите нужную вам кнопку", reply_markup=lang_markup102)
+        await state.set_state("командахелп")
+    else:
+        await message.reply("Вводите из предложенных вариантов")
+
+
+@dp.message_handler(commands=['help'], state="*")
+async def setup_language(message: types.Message, state: FSMContext):
+    await message.answer("Выберите нужную вам кнопку", reply_markup=lang_markup102)
+    await state.set_state("командахелп")
+
+@dp.message_handler(state='командахелп')
+async def age_process(message: types.Message, state: FSMContext):
+    aba = message.text
+    if aba=="Инструкция по пользованию":
+        await message.answer("Этот бот предназначен для расчёта материала необходимого при производстве промышленных бетонных и полимерных полов.\nЕсли у вас возникли вопросы с использованием бота, то можите прочитать это и попробовать найти ответ на свой вопрос.\nПри нажати кнопки /start, вам предложат выбрать тип полов, для которых вы сможите расчитать количество материала.\nНажав на кнопку 'Полимерные полы', вам предложат выбрать тип покрытия полимерных полов, а затем фактуру полов. После выбора фактуры полов вы сможите нажать на  нужную кнопку для расчёта того или иного материала в зависимости от вашего выбора.\nЕсли у вас остались вопросы, можите написать администратору бота @igorg80.\nКоманды:\n/start - запустить бота.\n/help - инструкция по пользованию/связь с администрацией.\n/calculation - сразу перейти к расчётам.\nПриятного использования)",reply_markup=ReplyKeyboardRemove())
+
+    elif aba=="Связь с администратором бота":
+        await message.answer("Если у вас есть предложения или остались вопросы по функционалу бота, то можите написать администратору @igorg80\nСпасибо, что пользуетесь ботом)",reply_markup=ReplyKeyboardRemove())
+    else:
+        await message.reply("Вводите из предложенных вариантов")
+
+@dp.message_handler(commands=['calculation'], state="*")
+async def setup_language(message: types.Message, state: FSMContext):
+    await message.answer("Выберите тип полов", reply_markup=lang_markup6)
     await state.set_state("Выбор вида полов")
 
 @dp.message_handler(state='Выбор вида полов')

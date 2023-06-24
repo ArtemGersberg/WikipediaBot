@@ -2,6 +2,13 @@ from aiogram.types import \
     KeyboardButton, \
     ReplyKeyboardMarkup
 
+a104=KeyboardButton("Инструкция по пользованию")
+a103=KeyboardButton("Связь с администратором бота")
+lang_markup102 = ReplyKeyboardMarkup().add(a104).add(a103)
+
+a14=KeyboardButton("Расчёт материала для полов")
+a13=KeyboardButton("Инструкция/связь с администрацией")
+lang_markup = ReplyKeyboardMarkup().add(a14).add(a13)
 
 k1 = KeyboardButton("Расчет количества температурно-усадочных швов")
 k2 = KeyboardButton("Расчёт количества арматуры")
