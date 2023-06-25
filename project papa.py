@@ -5,7 +5,7 @@ from aiogram.dispatcher import FSMContext
 from aiogram.types import  ReplyKeyboardRemove
 from aiogram.utils import executor
 from keyboards_papa_project import lang_markup1,lang_markup2,lang_markup3,lang_markup4,lang_markup5,lang_markup6,lang_markup7,lang_markup8 ,\
-lang_markup9,lang_markup10,lang_markup11,lang_markup,lang_markup102
+lang_markup9,lang_markup10,lang_markup11,lang_markup,lang_markup102,lang_markup123
 
 TOKEN="5701505172:AAEFVT76AqvIMBCUZgJ9cY39BVumvFJNCIM"
 bot = Bot(token=TOKEN)
@@ -46,7 +46,7 @@ async def age_process(message: types.Message, state: FSMContext):
     else:
         await message.reply("Вводите из предложенных вариантов")
 
-@dp.message_handler(commands=['calculation'], state="*")
+@dp.message_handler(commands=['calculations'], state="*")
 async def setup_language(message: types.Message, state: FSMContext):
     await message.answer("Выберите тип полов", reply_markup=lang_markup6)
     await state.set_state("Выбор вида полов")
@@ -62,6 +62,36 @@ async def age_process(message: types.Message, state: FSMContext):
         await state.set_state("wait_knopka")
     else:
         await message.reply("Вводите из предложенных вариантов")
+
+@dp.message_handler(commands=['requirements'], state="*")
+async def setup_language(message: types.Message, state: FSMContext):
+    await message.answer("Выберите тип полов", reply_markup=lang_markup6)
+    await state.set_state("Выбор вида полов2")
+
+@dp.message_handler(state='Выбор вида полов2')
+async def age_process(message: types.Message, state: FSMContext):
+    ab2 = message.text
+    if ab2=="Полимерные полы":
+        await message.answer("Выберите кнопку",reply_markup=lang_markup123)
+        await state.set_state("Выбор кнопки")
+    elif ab2=="Бетонные полы":
+        await message.answer("Выбор действия", reply_markup=lang_markup1)
+        await state.set_state("wait_knopka")
+    else:
+        await message.reply("Вводите из предложенных вариантов")
+
+@dp.message_handler(state='Выбор кнопки')
+async def age_process(message: types.Message, state: FSMContext):
+    ac2 = message.text
+    if ac2=="Требования к нанесению":
+        await message.answer("Устройство полов допускается при температуре укладываемых элементов и материалов пола, а также воздуха в помещении и на уровне пола, °С, не ниже:10 — при устройстве покрытий из полимерных материалов; эту температуру следует поддерживать не менее суток после окончания работ.Перед устройством полов, в конструкции которых заложены изделия и материалы на основе древесины или ее отходов, синтетических смол и волокон, ксилолитовых покрытий, в помещении должны быть выполнены штукатурные и иные работы, с вязанные с возможностью увлажнения покрытий, в том числе должны быть полностью смонтированы, опрессованы и опробованы системы отопления, водопровода и водоотведения. При устройстве этих полов и в последующий период до сдачи объекта в эксплуатацию относительная влажность воздуха в помещении не должна превышать 60 %. Сквозняки в помещении не допускаются.Конструкционная целостность-Основание должно быть плотным и прочным. Не допускается наличие трещин, отслоений и пыления. Метод контроля - Сплошной визуальный осмотр.Прочность основания на сжатие:для уличных условий применениядля внутренних помещений при наличии движения транспортадля внутренних помещений при пешеходном движении-Не менее 30 МПаНе менее 25 МПаНе менее 20 МПа. Метод контроля-ГОСТ 22690, не менее шести замеров на каждые 100 м2(методами ударного импульса и отрыва со скалыванием).Прочностьоснования нарастяжение приотрыве:- для уличныхусловийприменения- для внутреннихпомещений приналичии движениятранспорта- для внутреннихпомещений припешеходномдвижении-Не менее 2,0МпаНе менее 1,5МПаНе менее 1,0Мпа (когезионный характер отрыва).Метод контроля-ГОСТ 22690, не менее шести замеров на каждые 100 м2.Влажность основания-Не более 4%по массе, если иное не указано в технической документации производителя материалов покрытия.Метод контроля-ГОСТ 21718, не менее шести замеров на каждые 100 м2.Отклонение отплоскости-Не более 2мм на двухметровой рейке.Метод контроля-Инструментальный, не менее шести замеров на каждые 100м2.Возраст бетонного основания-Не менее 28сут, если иное не указано в технической документации производителя материалов покрытия.Метод контроля-Согласноисполнительнойдокументациистроительногообъекта")
+
+
+
+
+
+
+
 
 @dp.message_handler(state='Выбор типа полов')
 async def age_process(message: types.Message, state: FSMContext):
@@ -159,10 +189,11 @@ async def age_process(message: types.Message, state: FSMContext):
         if ad == "Гладкое":
             data = await state.get_data()
             tol2 = float(data["Толщина(Гладкое)"])
-            await message.answer("Грунтовка - " + str(float(pl) * 0.35) + " кг")
+            await message.answer("Грунтовка Ризопокс 3500 - " + str(float(pl) * 0.35) + " кг")
             await message.answer("Присыпка-песок - " + str(0.5 * float(pl)) + " кг")
-            await message.answer("Запечатка - " + str(0.8 * float(pl)) + " кг")
-            await message.answer("Финиш - " + str(tol2 * 2 * float(pl)) + " кг")
+            await message.answer("Запечатка Ризопокс 4400 - " + str(0.8 * float(pl)) + " кг")
+            await message.answer("Финишный слой Ризопокс 4101 - " + str(tol2 * 2 * float(pl)) + " кг")
+            await message.answer("Приобрести материал - 89600553058")
         elif ad == "Шероховатое":
             data = await state.get_data()
             tol1 = float(data["Толщина(Шероховатое)"])

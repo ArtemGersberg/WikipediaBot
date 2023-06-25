@@ -64,3 +64,7 @@ lang_markup10 = ReplyKeyboardMarkup().add(i1).add(i2).add(i3).add(i4)
 u1 = KeyboardButton("1 мм")
 u2 = KeyboardButton("2 мм")
 lang_markup11 = ReplyKeyboardMarkup().add(u1).add(u2)
+
+rt1=KeyboardButton("Требования к нанесению")
+rt2=KeyboardButton("Требования к готовым покрытиям")
+lang_markup123 = ReplyKeyboardMarkup().add(rt1).add(rt2)
