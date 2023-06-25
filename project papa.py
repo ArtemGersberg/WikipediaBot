@@ -27,7 +27,17 @@ async def age_process(message: types.Message, state: FSMContext):
         await message.answer("Выберите нужную вам кнопку", reply_markup=lang_markup102)
         await state.set_state("командахелп")
     else:
-        await message.reply("Вводите из предложенных вариантов")
+        if abc=="/calculations":
+                await message.answer("Выберите тип полов", reply_markup=lang_markup6)
+                await state.set_state("Выбор вида полов")
+        elif abc=="/requirements":
+            await message.answer("Выберите тип полов", reply_markup=lang_markup6)
+            await state.set_state("Выбор вида полов2")
+        elif abc=="/help":
+            await message.answer("Выберите нужную вам кнопку", reply_markup=lang_markup102)
+            await state.set_state("командахелп")
+        else:
+            await message.reply("Вводите из предложенных вариантов")
 
 
 @dp.message_handler(commands=['help'], state="*")
@@ -44,7 +54,17 @@ async def age_process(message: types.Message, state: FSMContext):
     elif aba=="Связь с администратором бота":
         await message.answer("Если у вас есть предложения или остались вопросы по функционалу бота, то можите написать администратору @igorg80\nСпасибо, что пользуетесь ботом)",reply_markup=ReplyKeyboardRemove())
     else:
-        await message.reply("Вводите из предложенных вариантов")
+        if aba=="/calculations":
+                await message.answer("Выберите тип полов", reply_markup=lang_markup6)
+                await state.set_state("Выбор вида полов")
+        elif aba=="/requirements":
+            await message.answer("Выберите тип полов", reply_markup=lang_markup6)
+            await state.set_state("Выбор вида полов2")
+        elif aba=="/help":
+            await message.answer("Выберите нужную вам кнопку", reply_markup=lang_markup102)
+            await state.set_state("командахелп")
+        else:
+            await message.reply("Вводите из предложенных вариантов")
 
 @dp.message_handler(commands=['calculations'], state="*")
 async def setup_language(message: types.Message, state: FSMContext):
@@ -61,7 +81,17 @@ async def age_process(message: types.Message, state: FSMContext):
         await message.answer("Выбор действия", reply_markup=lang_markup1)
         await state.set_state("wait_knopka")
     else:
-        await message.reply("Вводите из предложенных вариантов")
+        if ab == "/calculations":
+            await message.answer("Выберите тип полов", reply_markup=lang_markup6)
+            await state.set_state("Выбор вида полов")
+        elif ab == "/requirements":
+            await message.answer("Выберите тип полов", reply_markup=lang_markup6)
+            await state.set_state("Выбор вида полов2")
+        elif ab == "/help":
+            await message.answer("Выберите нужную вам кнопку", reply_markup=lang_markup102)
+            await state.set_state("командахелп")
+        else:
+            await message.reply("Вводите из предложенных вариантов")
 
 @dp.message_handler(commands=['requirements'], state="*")
 async def setup_language(message: types.Message, state: FSMContext):
@@ -78,17 +108,30 @@ async def age_process(message: types.Message, state: FSMContext):
         await message.answer("Выбор действия", reply_markup=lang_markup1)
         await state.set_state("wait_knopka")
     else:
-        await message.reply("Вводите из предложенных вариантов")
+        if ab2=="/calculations":
+                await message.answer("Выберите тип полов", reply_markup=lang_markup6)
+                await state.set_state("Выбор вида полов")
+        elif ab2=="/requirements":
+            await message.answer("Выберите тип полов", reply_markup=lang_markup6)
+            await state.set_state("Выбор вида полов2")
+        elif ab2=="/help":
+            await message.answer("Выберите нужную вам кнопку", reply_markup=lang_markup102)
+            await state.set_state("командахелп")
+        else:
+            await message.reply("Вводите из предложенных вариантов")
 
 @dp.message_handler(state='Выбор кнопки')
 async def age_process(message: types.Message, state: FSMContext):
     ac2 = message.text
     if ac2=="Требования к нанесению":
-        await message.answer("Устройство полов допускается при температуре укладываемых элементов и материалов пола, а также воздуха в помещении и на уровне пола, °С, не ниже:10 — при устройстве покрытий из полимерных материалов; эту температуру следует поддерживать не менее суток после окончания работ.Перед устройством полов, в конструкции которых заложены изделия и материалы на основе древесины или ее отходов, синтетических смол и волокон, ксилолитовых покрытий, в помещении должны быть выполнены штукатурные и иные работы, с вязанные с возможностью увлажнения покрытий, в том числе должны быть полностью смонтированы, опрессованы и опробованы системы отопления, водопровода и водоотведения. При устройстве этих полов и в последующий период до сдачи объекта в эксплуатацию относительная влажность воздуха в помещении не должна превышать 60 %. Сквозняки в помещении не допускаются.Конструкционная целостность-Основание должно быть плотным и прочным. Не допускается наличие трещин, отслоений и пыления. Метод контроля - Сплошной визуальный осмотр.Прочность основания на сжатие:для уличных условий применениядля внутренних помещений при наличии движения транспортадля внутренних помещений при пешеходном движении-Не менее 30 МПаНе менее 25 МПаНе менее 20 МПа. Метод контроля-ГОСТ 22690, не менее шести замеров на каждые 100 м2(методами ударного импульса и отрыва со скалыванием).Прочностьоснования нарастяжение приотрыве:- для уличныхусловийприменения- для внутреннихпомещений приналичии движениятранспорта- для внутреннихпомещений припешеходномдвижении-Не менее 2,0МпаНе менее 1,5МПаНе менее 1,0Мпа (когезионный характер отрыва).Метод контроля-ГОСТ 22690, не менее шести замеров на каждые 100 м2.Влажность основания-Не более 4%по массе, если иное не указано в технической документации производителя материалов покрытия.Метод контроля-ГОСТ 21718, не менее шести замеров на каждые 100 м2.Отклонение отплоскости-Не более 2мм на двухметровой рейке.Метод контроля-Инструментальный, не менее шести замеров на каждые 100м2.Возраст бетонного основания-Не менее 28сут, если иное не указано в технической документации производителя материалов покрытия.Метод контроля-Согласноисполнительнойдокументациистроительногообъекта")
-
-
-
-
+        await message.answer("Устройство полов допускается при температуре укладываемых элементов и материалов пола, а также воздуха в помещении и на уровне пола, °С, не ниже:10 — при устройстве покрытий из полимерных материалов; эту температуру следует поддерживать не менее суток после окончания работ.",reply_markup=ReplyKeyboardRemove())
+        await message.answer("Перед устройством полов, в конструкции которых заложены изделия и материалы на основе древесины или ее отходов, синтетических смол и волокон, ксилолитовых покрытий, в помещении должны быть выполнены штукатурные и иные работы, связанные с возможностью увлажнения покрытий, в том числе должны быть полностью смонтированы, опрессованы и опробованы системы отопления, водопровода и водоотведения. При устройстве этих полов и в последующий период до сдачи объекта в эксплуатацию относительная влажность воздуха в помещении не должна превышать 60 %. Сквозняки в помещении не допускаются.")
+        await message.answer("Конструкционная целостность-основание должно быть плотным и прочным. Не допускается наличие трещин, отслоений и пыления. Метод контроля - Сплошной визуальный осмотр.")
+        await message.answer("Прочность основания на сжатие:для уличных условий применения для внутренних помещений при наличии движения транспорта для внутренних помещений при пешеходном движении-Не менее 30 МПаНе менее 25 МПаНе менее 20 МПа. Метод контроля-ГОСТ 22690, не менее шести замеров на каждые 100 м2(методами ударного импульса и отрыва со скалыванием).")
+        await message.answer("Прочность основания на растяжение приотрыве: для уличных условий применения- для внутренних помещений при наличии движения транспорта- для внутренних помещений при пешеходном движении-Не менее 2,0МпаНе менее 1,5МПаНе менее 1,0Мпа (когезионный характер отрыва).Метод контроля-ГОСТ 22690, не менее шести замеров на каждые 100 м2.")
+        await message.answer("Влажность основания-Не более 4% по массе, если иное не указано в технической документации производителя материалов покрытия.Метод контроля-ГОСТ 21718, не менее шести замеров на каждые 100 м2.")
+        await message.answer("Отклонение от плоскости-Не более 2мм на двухметровой рейке.Метод контроля-Инструментальный, не менее шести замеров накаждые 100м2.")
+        await message.answer("Возраст бетонного основания-Не менее 28сут, если иное не указано в технической документации производителя материалов покрытия.Метод контроля-Согласно исполнительной документации строительного объекта.")
 
 
 
@@ -106,7 +149,17 @@ async def age_process(message: types.Message, state: FSMContext):
     elif ac=="Полиуретан-цементные":
         await message.answer("Идёт разработка...",reply_markup=ReplyKeyboardRemove())
     else:
-        await message.reply("Вводите из предложенных вариантов")
+        if ac=="/calculations":
+                await message.answer("Выберите тип полов", reply_markup=lang_markup6)
+                await state.set_state("Выбор вида полов")
+        elif ac=="/requirements":
+            await message.answer("Выберите тип полов", reply_markup=lang_markup6)
+            await state.set_state("Выбор вида полов2")
+        elif ac=="/help":
+            await message.answer("Выберите нужную вам кнопку", reply_markup=lang_markup102)
+            await state.set_state("командахелп")
+        else:
+            await message.reply("Вводите из предложенных вариантов")
 
 @dp.message_handler(state='Выбор фактуры полов(Эпоксидные)')
 async def age_process(message: types.Message, state: FSMContext):
@@ -122,7 +175,17 @@ async def age_process(message: types.Message, state: FSMContext):
         await message.answer("Выберите толщину покрытия декоративной фактуры", reply_markup=lang_markup11)
         await state.set_state("Выбор толщины(Декоративное)")
     else:
-        await message.reply("Вводите из предложенных вариантов")
+        if ad == "/calculations":
+            await message.answer("Выберите тип полов", reply_markup=lang_markup6)
+            await state.set_state("Выбор вида полов")
+        elif ad == "/requirements":
+            await message.answer("Выберите тип полов", reply_markup=lang_markup6)
+            await state.set_state("Выбор вида полов2")
+        elif ad == "/help":
+            await message.answer("Выберите нужную вам кнопку", reply_markup=lang_markup102)
+            await state.set_state("командахелп")
+        else:
+            await message.reply("Вводите из предложенных вариантов")
 
 @dp.message_handler(state='Выбор толщины(Декоративное)')
 async def age_process(message: types.Message, state: FSMContext):
@@ -136,7 +199,17 @@ async def age_process(message: types.Message, state: FSMContext):
         await message.answer("Введите площадь(в м²)",reply_markup=ReplyKeyboardRemove())
         await state.set_state("Вывод формулы")
     else:
-        await message.reply("Вводите из предложенных вариантов")
+        if au == "/calculations":
+            await message.answer("Выберите тип полов", reply_markup=lang_markup6)
+            await state.set_state("Выбор вида полов")
+        elif au == "/requirements":
+            await message.answer("Выберите тип полов", reply_markup=lang_markup6)
+            await state.set_state("Выбор вида полов2")
+        elif au == "/help":
+            await message.answer("Выберите нужную вам кнопку", reply_markup=lang_markup102)
+            await state.set_state("командахелп")
+        else:
+            await message.reply("Вводите из предложенных вариантов")
 
 
 
@@ -160,7 +233,17 @@ async def age_process(message: types.Message, state: FSMContext):
         await message.answer("Введите площадь(в м²)",reply_markup=ReplyKeyboardRemove())
         await state.set_state("Вывод формулы")
     else:
-        await message.reply("Вводите из предложенных вариантов")
+        if ai == "/calculations":
+            await message.answer("Выберите тип полов", reply_markup=lang_markup6)
+            await state.set_state("Выбор вида полов")
+        elif ai == "/requirements":
+            await message.answer("Выберите тип полов", reply_markup=lang_markup6)
+            await state.set_state("Выбор вида полов2")
+        elif ai == "/help":
+            await message.answer("Выберите нужную вам кнопку", reply_markup=lang_markup102)
+            await state.set_state("командахелп")
+        else:
+            await message.reply("Вводите из предложенных вариантов")
 
 @dp.message_handler(state='Выбор толщины(Гладкое)')
 async def age_process(message: types.Message, state: FSMContext):
@@ -178,7 +261,17 @@ async def age_process(message: types.Message, state: FSMContext):
         await message.answer("Введите площадь(в м²)",reply_markup=ReplyKeyboardRemove())
         await state.set_state("Вывод формулы")
     else:
-        await message.reply("Вводите из предложенных вариантов")
+        if ae == "/calculations":
+            await message.answer("Выберите тип полов", reply_markup=lang_markup6)
+            await state.set_state("Выбор вида полов")
+        elif ae == "/requirements":
+            await message.answer("Выберите тип полов", reply_markup=lang_markup6)
+            await state.set_state("Выбор вида полов2")
+        elif ae == "/help":
+            await message.answer("Выберите нужную вам кнопку", reply_markup=lang_markup102)
+            await state.set_state("командахелп")
+        else:
+            await message.reply("Вводите из предложенных вариантов")
 
 @dp.message_handler(state='Вывод формулы')
 async def age_process(message: types.Message, state: FSMContext):
@@ -193,23 +286,35 @@ async def age_process(message: types.Message, state: FSMContext):
             await message.answer("Присыпка-песок - " + str(0.5 * float(pl)) + " кг")
             await message.answer("Запечатка Ризопокс 4400 - " + str(0.8 * float(pl)) + " кг")
             await message.answer("Финишный слой Ризопокс 4101 - " + str(tol2 * 2 * float(pl)) + " кг")
-            await message.answer("Приобрести материал - 89600553058")
+            await message.answer("Рекомендуемые материалы можно приобрести по номеру +79600553058")
         elif ad == "Шероховатое":
             data = await state.get_data()
             tol1 = float(data["Толщина(Шероховатое)"])
-            await message.answer("Грунтовка - " + str(float(pl) * 0.35) + " кг")
+            await message.answer("Грунтовка Ризопокс 3500 - " + str(float(pl) * 0.35) + " кг")
             await message.answer("Присыпка-песок - " + str(0.5 * float(pl)) + " кг")
-            await message.answer("Запечатка - " + str(0.8 * float(pl)) + " кг")
-            await message.answer("Финиш - " + str(tol1 * 2 * float(pl)) + " кг")
+            await message.answer("Запечатка Ризопокс 4400 - " + str(0.8 * float(pl)) + " кг")
+            await message.answer("Финишный слой Ризопокс 4101 - " + str(tol1 * 2 * float(pl)) + " кг")
+            await message.answer("Рекомендуемые материалы можно приобрести по номеру +79600553058")
         elif ad == "Декоративное":
             data = await state.get_data()
             tol3 = float(data["Толщина(Декоративное)"])
-            await message.answer("Грунтовка - " + str(float(pl) * 0.35) + " кг")
+            await message.answer("Грунтовка Ризопокс 3500 - " + str(float(pl) * 0.35) + " кг")
             await message.answer("Присыпка-песок - " + str(0.5 * float(pl)) + " кг")
-            await message.answer("Запечатка - " + str(0.8 * float(pl)) + " кг")
-            await message.answer("Финиш - " + str(tol3 * 2 * float(pl)) + " кг")
-    else:
-        await message.reply("Вы ввели не число. Повторите попытку")
+            await message.answer("Запечатка Ризопокс 4400 - " + str(0.8 * float(pl)) + " кг")
+            await message.answer("Финишный слой Ризопокс 4101 - " + str(tol3 * 2 * float(pl)) + " кг")
+            await message.answer("Рекомендуемые материалы можно приобрести по номеру +79600553058")
+        else:
+            if ad == "/calculations":
+                await message.answer("Выберите тип полов", reply_markup=lang_markup6)
+                await state.set_state("Выбор вида полов")
+            elif ad == "/requirements":
+                await message.answer("Выберите тип полов", reply_markup=lang_markup6)
+                await state.set_state("Выбор вида полов2")
+            elif ad == "/help":
+                await message.answer("Выберите нужную вам кнопку", reply_markup=lang_markup102)
+                await state.set_state("командахелп")
+            else:
+                await message.reply("Вводите из предложенных вариантов")
 @dp.message_handler(state='площадь')
 async def age_process(message: types.Message, state: FSMContext):
     a = message.text
@@ -219,7 +324,17 @@ async def age_process(message: types.Message, state: FSMContext):
         await message.answer("Введите толщину(в мм)")
         await state.set_state('толщина')
     else:
-        await message.reply("Вы ввели не число. Повторите попытку")
+        if a == "/calculations":
+            await message.answer("Выберите тип полов", reply_markup=lang_markup6)
+            await state.set_state("Выбор вида полов")
+        elif a == "/requirements":
+            await message.answer("Выберите тип полов", reply_markup=lang_markup6)
+            await state.set_state("Выбор вида полов2")
+        elif a == "/help":
+            await message.answer("Выберите нужную вам кнопку", reply_markup=lang_markup102)
+            await state.set_state("командахелп")
+        else:
+            await message.reply("Вы ввели не число. Повторите попытку")
 
 @dp.message_handler(state='толщина')
 async def age_process(message: types.Message, state: FSMContext):
@@ -232,7 +347,7 @@ async def age_process(message: types.Message, state: FSMContext):
         await message.answer("Шаг нарезки швов - " + str(int(float(b)*30//1000)) + " п.м.")
         if (float(a//(float(b)*30//1000)**2)*(float(b)*30//1000)*2)%200==0:
             await message.answer("Количество необходимых алмазных дисков для нарезки швов -" + str(int((float(a // (float(b) * 30 // 1000) ** 2) * (float(b) * 30 // 1000) * 2)/200)) +" шт" )
-            await message.answer(f"Алмазные диски для нарезки швов можно приобрести на сайте:http://samishsib.ru/catalog/70/")
+            await message.answer(f"Рекомендуемые алмазные диски для нарезки швов можно приобрести на сайте:http://samishsib.ru/catalog/70/")
             if ((float(a//(float(b)*30//1000)**2)*(float(b)*30//1000)*2)*1.1)%1==0:
                 await message.answer("Количество необходимого вилатерм шнура - "+ str(int((float(a//(float(b)*30//1000)**2)*(float(b)*30//1000)*2)*1.1))+" п.м.")
                 if (float(a//(float(b)*30//1000)**2)*(float(b)*30//1000)*2)%10==0:
@@ -247,7 +362,7 @@ async def age_process(message: types.Message, state: FSMContext):
                     await message.answer("Количесто необходимого полиуретанового герметика в банках по 600мл - "+ str(int(((float(a//(float(b)*30//1000)**2)*(float(b)*30//1000)*2)/10)+1)) +" шт")
         else:
             await message.answer("Количество необходимых алмазных дисков для нарезки швов - " + str(int((float(a // (float(b) * 30 // 1000) ** 2) * (float(b) * 30 // 1000) * 2)/200)+1) +" шт")
-            await message.answer(f"Алмазные диски для нарезки швов можно приобрести на сайте:http://samishsib.ru/catalog/70/")
+            await message.answer(f"Рекомендуемые алмазные диски для нарезки швов можно приобрести на сайте:http://samishsib.ru/catalog/70/")
             if ((float(a//(float(b)*30//1000)**2)*(float(b)*30//1000)*2)*1.1)%1==0:
                 await message.answer("Количество необходимого вилатерм шнура - "+ str(int((float(a//(float(b)*30//1000)**2)*(float(b)*30//1000)*2)*1.1))+" п.м.")
                 if (float(a//(float(b)*30//1000)**2)*(float(b)*30//1000)*2)%10==0:
@@ -263,7 +378,17 @@ async def age_process(message: types.Message, state: FSMContext):
                         int(((float(a // (float(b) * 30 // 1000) ** 2) * (
                                     float(b) * 30 // 1000) * 2) / 10) + 1)) + " шт")
     else:
-        await message.reply("Вы ввели не число. Повторите попытку")
+        if b == "/calculations":
+            await message.answer("Выберите тип полов", reply_markup=lang_markup6)
+            await state.set_state("Выбор вида полов")
+        elif b == "/requirements":
+            await message.answer("Выберите тип полов", reply_markup=lang_markup6)
+            await state.set_state("Выбор вида полов2")
+        elif b == "/help":
+            await message.answer("Выберите нужную вам кнопку", reply_markup=lang_markup102)
+            await state.set_state("командахелп")
+        else:
+            await message.reply("Вы ввели не число. Повторите попытку")
 
 
 @dp.message_handler(state="wait_knopka")
@@ -277,7 +402,17 @@ async def set_language(message: types.Message, state: FSMContext):
         await message.answer("На сколько расчитать количество арматуры",reply_markup=lang_markup5)
         await state.set_state("на сколько расчитать")
     else:
-        await message.reply("Вводите из предложенных вариантов")
+        if lang_markup1 == "/calculations":
+            await message.answer("Выберите тип полов", reply_markup=lang_markup6)
+            await state.set_state("Выбор вида полов")
+        elif lang_markup1 == "/requirements":
+            await message.answer("Выберите тип полов", reply_markup=lang_markup6)
+            await state.set_state("Выбор вида полов2")
+        elif lang_markup1 == "/help":
+            await message.answer("Выберите нужную вам кнопку", reply_markup=lang_markup102)
+            await state.set_state("командахелп")
+        else:
+            await message.reply("Вводите из предложенных вариантов")
 
 @dp.message_handler(state="на сколько расчитать")
 async def set_language(message: types.Message, state: FSMContext):
@@ -290,7 +425,17 @@ async def set_language(message: types.Message, state: FSMContext):
         await message.answer("Введите площадь объекта:",reply_markup=ReplyKeyboardRemove())
         await state.set_state("Скольки слойное армироване на всю п")
     else:
-        await message.reply("Вводите из предложенных вариантов")
+        if h == "/calculations":
+            await message.answer("Выберите тип полов", reply_markup=lang_markup6)
+            await state.set_state("Выбор вида полов")
+        elif h == "/requirements":
+            await message.answer("Выберите тип полов", reply_markup=lang_markup6)
+            await state.set_state("Выбор вида полов2")
+        elif h == "/help":
+            await message.answer("Выберите нужную вам кнопку", reply_markup=lang_markup102)
+            await state.set_state("командахелп")
+        else:
+            await message.reply("Вводите из предложенных вариантов")
 
 @dp.message_handler(state="Скольки слойное армироване")
 async def set_language(message: types.Message, state: FSMContext):
@@ -309,7 +454,17 @@ async def set_language(message: types.Message, state: FSMContext):
         await message.answer("Выберите диаметр первого слоя арматуры(в мм)", reply_markup=lang_markup3)
         await state.set_state("однослойное армирование")
     else:
-        await message.reply("Вводите из предложенных вариантов")
+        if lang_markup2 == "/calculations":
+            await message.answer("Выберите тип полов", reply_markup=lang_markup6)
+            await state.set_state("Выбор вида полов")
+        elif lang_markup2 == "/requirements":
+            await message.answer("Выберите тип полов", reply_markup=lang_markup6)
+            await state.set_state("Выбор вида полов2")
+        elif lang_markup2 == "/help":
+            await message.answer("Выберите нужную вам кнопку", reply_markup=lang_markup102)
+            await state.set_state("командахелп")
+        else:
+            await message.reply("Вводите из предложенных вариантов")
 @dp.message_handler(state="Скольки слойное армироване на всю п")
 async def set_language(message: types.Message, state: FSMContext):
     f = message.text
@@ -318,7 +473,17 @@ async def set_language(message: types.Message, state: FSMContext):
         await message.answer("Выбирите скольки слойное армирование на всю площадь хотите сделать", reply_markup=lang_markup2)
         await state.set_state("однослойное армирование на всю")
     else:
-        await message.reply("Вы ввели не число. Повторите попытку")
+        if f == "/calculations":
+            await message.answer("Выберите тип полов", reply_markup=lang_markup6)
+            await state.set_state("Выбор вида полов")
+        elif f == "/requirements":
+            await message.answer("Выберите тип полов", reply_markup=lang_markup6)
+            await state.set_state("Выбор вида полов2")
+        elif f == "/help":
+            await message.answer("Выберите нужную вам кнопку", reply_markup=lang_markup102)
+            await state.set_state("командахелп")
+        else:
+            await message.reply("Вы ввели не число. Повторите попытку")
 
 
 @dp.message_handler(state='однослойное армирование на всю')
@@ -336,7 +501,17 @@ async def age_process(message: types.Message, state: FSMContext):
         await message.answer("Выберите диаметр первого слоя арматуры(в мм)", reply_markup=lang_markup3)
         await state.set_state("однослойное армирование")
     else:
-        await message.reply("Вводите из предложенных вариантов")
+        if lang_markup2 == "/calculations":
+            await message.answer("Выберите тип полов", reply_markup=lang_markup6)
+            await state.set_state("Выбор вида полов")
+        elif lang_markup2 == "/requirements":
+            await message.answer("Выберите тип полов", reply_markup=lang_markup6)
+            await state.set_state("Выбор вида полов2")
+        elif lang_markup2 == "/help":
+            await message.answer("Выберите нужную вам кнопку", reply_markup=lang_markup102)
+            await state.set_state("командахелп")
+        else:
+            await message.reply("Вводите из предложенных вариантов")
 
 @dp.message_handler(state='однослойное армирование')
 async def age_process(message: types.Message, state: FSMContext):
@@ -345,7 +520,6 @@ async def age_process(message: types.Message, state: FSMContext):
     data = await state.get_data()
     ckokclov = str(data["сколько слоёв арматуры"])
     if ckokclov=="Однослойное армирование":
-        await state.update_data({'однослойное армирование': float(c)})
         if c=="8 мм":
             dem20 = 0.395
             await state.update_data({'масса арматуры': float(dem20)})
@@ -372,7 +546,17 @@ async def age_process(message: types.Message, state: FSMContext):
             await message.answer("Теперь введите шаг арматуры(в мм)", reply_markup=lang_markup4)
             await state.set_state("шаг арматуры")
         else:
-            await message.reply("Вводите из предложенных вариантов")
+            if c == "/calculations":
+                await message.answer("Выберите тип полов", reply_markup=lang_markup6)
+                await state.set_state("Выбор вида полов")
+            elif c == "/requirements":
+                await message.answer("Выберите тип полов", reply_markup=lang_markup6)
+                await state.set_state("Выбор вида полов2")
+            elif c == "/help":
+                await message.answer("Выберите нужную вам кнопку", reply_markup=lang_markup102)
+                await state.set_state("командахелп")
+            else:
+                await message.reply("Вводите из предложенных вариантов")
     elif ckokclov=="Двухслойное армирование":
         if c=="8 мм":
             dem20 = 0.395
@@ -400,9 +584,17 @@ async def age_process(message: types.Message, state: FSMContext):
             await message.answer("Введите диаметр второго слоя арматуры(в мм)", reply_markup=lang_markup3)
             await state.set_state("второй слой армирования на м2")
         else:
-            await message.reply("Вводите из предложенных вариантов")
-    else:
-        await message.reply("Вводите из предложенных вариантов")
+            if c == "/calculations":
+                await message.answer("Выберите тип полов", reply_markup=lang_markup6)
+                await state.set_state("Выбор вида полов")
+            elif c == "/requirements":
+                await message.answer("Выберите тип полов", reply_markup=lang_markup6)
+                await state.set_state("Выбор вида полов2")
+            elif c == "/help":
+                await message.answer("Выберите нужную вам кнопку", reply_markup=lang_markup102)
+                await state.set_state("командахелп")
+            else:
+                await message.reply("Вводите из предложенных вариантов")
 
 
 @dp.message_handler(state='второй слой армирования на м2')
@@ -434,9 +626,18 @@ async def age_process(message: types.Message, state: FSMContext):
         await message.answer("Теперь введите шаг первого слоя арматуры(в мм)", reply_markup=lang_markup4)
         await state.set_state("шаг арматуры")
     else:
-        await message.reply("Вводите из предложенных вариантов")
+        if p == "/calculations":
+            await message.answer("Выберите тип полов", reply_markup=lang_markup6)
+            await state.set_state("Выбор вида полов")
+        elif p == "/requirements":
+            await message.answer("Выберите тип полов", reply_markup=lang_markup6)
+            await state.set_state("Выбор вида полов2")
+        elif p == "/help":
+            await message.answer("Выберите нужную вам кнопку", reply_markup=lang_markup102)
+            await state.set_state("командахелп")
+        else:
+            await message.reply("Вводите из предложенных вариантов")
 
-    #await state.set_state("шаг арматуры")
 
 
 
@@ -536,7 +737,17 @@ async def age_process(message: types.Message, state: FSMContext):
         await message.answer("Введите шаг второго слоя арматуры(в мм)", reply_markup=lang_markup4)
         await state.set_state("второй слой армирования на м2 шаг")
     else:
-        await message.reply("Вводите из предложенных вариантов")
+        if d == "/calculations":
+            await message.answer("Выберите тип полов", reply_markup=lang_markup6)
+            await state.set_state("Выбор вида полов")
+        elif d == "/requirements":
+            await message.answer("Выберите тип полов", reply_markup=lang_markup6)
+            await state.set_state("Выбор вида полов2")
+        elif d == "/help":
+            await message.answer("Выберите нужную вам кнопку", reply_markup=lang_markup102)
+            await state.set_state("командахелп")
+        else:
+            await message.reply("Вводите из предложенных вариантов")
 
 
 @dp.message_handler(state='второй слой армирования на м2 шаг')
@@ -571,7 +782,6 @@ async def age_process(message: types.Message, state: FSMContext):
                 ((((9000 / float(sh)) * 2) * float(de)) / 9) * float(f)) + "кг", reply_markup=ReplyKeyboardRemove())
             await message.answer("Количество арматуры на всю площадь второго слоя(в кг) - " + str(
                 ((((9000 / float(sh2)) * 2) * float(de2)) / 9) * float(f)) + "кг", reply_markup=ReplyKeyboardRemove())
-
     elif o == "150 мм":
         shag201 = 150
         await state.update_data({'шаг2слой': float(shag201)})
@@ -685,12 +895,17 @@ async def age_process(message: types.Message, state: FSMContext):
                 ((((9000 / float(sh2)) * 2) * float(de2)) / 9) * float(f)) + "кг",
                                  reply_markup=ReplyKeyboardRemove())
     else:
-        await message.reply("Вводите из предложенных вариантов")
-
-
-
-
-
+        if o == "/calculations":
+            await message.answer("Выберите тип полов", reply_markup=lang_markup6)
+            await state.set_state("Выбор вида полов")
+        elif o == "/requirements":
+            await message.answer("Выберите тип полов", reply_markup=lang_markup6)
+            await state.set_state("Выбор вида полов2")
+        elif o == "/help":
+            await message.answer("Выберите нужную вам кнопку", reply_markup=lang_markup102)
+            await state.set_state("командахелп")
+        else:
+            await message.reply("Вводите из предложенных вариантов")
 
 if __name__ == "__main__":
     executor.start_polling(dp, skip_updates=True)
