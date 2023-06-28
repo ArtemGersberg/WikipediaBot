@@ -6,8 +6,8 @@ from aiogram.types import  ReplyKeyboardRemove
 from aiogram.utils import executor
 from keyboards_papa_project import lang_markup1,lang_markup2,lang_markup3,lang_markup4,lang_markup5,lang_markup6,lang_markup7,lang_markup8 ,\
 lang_markup9,lang_markup10,lang_markup11,lang_markup,lang_markup102,lang_markup123
+from env import TOKEN
 
-TOKEN="5701505172:AAEFVT76AqvIMBCUZgJ9cY39BVumvFJNCIM"
 bot = Bot(token=TOKEN)
 dp = Dispatcher(bot, storage=MemoryStorage())
 
@@ -106,7 +106,7 @@ async def age_process(message: types.Message, state: FSMContext):
         await state.set_state("Выбор кнопки")
     elif ab2=="Бетонные полы":
         await message.answer("Выбор действия", reply_markup=lang_markup1)
-        await state.set_state("wait_knopka")
+        await state.set_state("Выбор кнопки2")
     else:
         if ab2=="/calculations":
                 await message.answer("Выберите тип полов", reply_markup=lang_markup6)
@@ -120,6 +120,27 @@ async def age_process(message: types.Message, state: FSMContext):
         else:
             await message.reply("Вводите из предложенных вариантов")
 
+@dp.message_handler(state='Выбор кнопки2')
+async def age_process(message: types.Message, state: FSMContext):
+    af=message.text
+    if af=="Требования к нанесению":
+        await message.answer("Идёт разроботка...")
+    elif af=="Требования к готовым покрытиям":
+        await message.answer("Идёт разроботка...")
+    else:
+        if af=="/calculations":
+                await message.answer("Выберите тип полов", reply_markup=lang_markup6)
+                await state.set_state("Выбор вида полов")
+        elif af=="/requirements":
+            await message.answer("Выберите тип полов", reply_markup=lang_markup6)
+            await state.set_state("Выбор вида полов2")
+        elif af=="/help":
+            await message.answer("Выберите нужную вам кнопку", reply_markup=lang_markup102)
+            await state.set_state("командахелп")
+        else:
+            await message.reply("Вводите из предложенных вариантов")
+
+
 @dp.message_handler(state='Выбор кнопки')
 async def age_process(message: types.Message, state: FSMContext):
     ac2 = message.text
@@ -132,7 +153,20 @@ async def age_process(message: types.Message, state: FSMContext):
         await message.answer("Влажность основания-Не более 4% по массе, если иное не указано в технической документации производителя материалов покрытия.Метод контроля-ГОСТ 21718, не менее шести замеров на каждые 100 м2.")
         await message.answer("Отклонение от плоскости-Не более 2мм на двухметровой рейке.Метод контроля-Инструментальный, не менее шести замеров накаждые 100м2.")
         await message.answer("Возраст бетонного основания-Не менее 28сут, если иное не указано в технической документации производителя материалов покрытия.Метод контроля-Согласно исполнительной документации строительного объекта.")
-
+    elif ac2=="Требования к готовым покрытиям":
+        await message.answer("Идёт разроботка...")
+    else:
+        if ac2=="/calculations":
+                await message.answer("Выберите тип полов", reply_markup=lang_markup6)
+                await state.set_state("Выбор вида полов")
+        elif ac2=="/requirements":
+            await message.answer("Выберите тип полов", reply_markup=lang_markup6)
+            await state.set_state("Выбор вида полов2")
+        elif ac2=="/help":
+            await message.answer("Выберите нужную вам кнопку", reply_markup=lang_markup102)
+            await state.set_state("командахелп")
+        else:
+            await message.reply("Вводите из предложенных вариантов")
 
 
 
