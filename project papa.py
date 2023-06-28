@@ -105,7 +105,7 @@ async def age_process(message: types.Message, state: FSMContext):
         await message.answer("Выберите кнопку",reply_markup=lang_markup123)
         await state.set_state("Выбор кнопки")
     elif ab2=="Бетонные полы":
-        await message.answer("Выбор действия", reply_markup=lang_markup1)
+        await message.answer("Выбор действия", reply_markup=lang_markup123)
         await state.set_state("Выбор кнопки2")
     else:
         if ab2=="/calculations":
@@ -124,9 +124,9 @@ async def age_process(message: types.Message, state: FSMContext):
 async def age_process(message: types.Message, state: FSMContext):
     af=message.text
     if af=="Требования к нанесению":
-        await message.answer("Идёт разроботка...")
+        await message.answer("Идёт разроботка...",reply_markup=ReplyKeyboardRemove())
     elif af=="Требования к готовым покрытиям":
-        await message.answer("Идёт разроботка...")
+        await message.answer("Идёт разроботка...",reply_markup=ReplyKeyboardRemove())
     else:
         if af=="/calculations":
                 await message.answer("Выберите тип полов", reply_markup=lang_markup6)
