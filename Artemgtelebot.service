@@ -8,7 +8,7 @@ Group=artemg
 
 WorkingDirectory=/home/artemg/WikipediaBot/
 Environment="PYTHONPATH=/home/artemg/WikipediaBot/"
-ExecStart=/home/artemg/WikipediaBot/.venv/bin/python /home/artemg/project papa/bot.py
+ExecStart=/home/artemg/WikipediaBot/.venv/bin/python /home/artemg/projectpapa/bot.py
 
 [Install]
 WantedBy=multi-user.target
