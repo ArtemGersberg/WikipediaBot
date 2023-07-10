@@ -124,9 +124,9 @@ async def age_process(message: types.Message, state: FSMContext):
 async def age_process(message: types.Message, state: FSMContext):
     af=message.text
     if af=="Требования к нанесению":
-        await message.answer("Идёт разроботка...",reply_markup=ReplyKeyboardRemove())
+        await message.answer("Идёт разработка...",reply_markup=ReplyKeyboardRemove())
     elif af=="Требования к готовым покрытиям":
-        await message.answer("Идёт разроботка...",reply_markup=ReplyKeyboardRemove())
+        await message.answer("Идёт разработка...",reply_markup=ReplyKeyboardRemove())
     else:
         if af=="/calculations":
                 await message.answer("Выберите тип полов", reply_markup=lang_markup6)
@@ -154,7 +154,7 @@ async def age_process(message: types.Message, state: FSMContext):
         await message.answer("Отклонение от плоскости-Не более 2мм на двухметровой рейке.Метод контроля-Инструментальный, не менее шести замеров накаждые 100м2.")
         await message.answer("Возраст бетонного основания-Не менее 28сут, если иное не указано в технической документации производителя материалов покрытия.Метод контроля-Согласно исполнительной документации строительного объекта.")
     elif ac2=="Требования к готовым покрытиям":
-        await message.answer("Идёт разроботка...")
+        await message.answer("Идёт разработка...")
     else:
         if ac2=="/calculations":
                 await message.answer("Выберите тип полов", reply_markup=lang_markup6)
